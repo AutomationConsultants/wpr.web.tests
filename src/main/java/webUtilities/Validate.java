@@ -4,6 +4,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
+import driver.Global;
+
 public class Validate {
 	Wait wait = new Wait();
 	InputField inputField = new InputField();
@@ -108,6 +110,19 @@ public class Validate {
 	
 	public boolean isCheckboxNotSelected(String uiObjectName) {
 		return isRadioNotSelected(uiObjectName);
+	}
+	
+	public boolean isTextPresentOnPage(String textToFind) {
+		boolean isTextPresentOnPage = false;
+		try {
+			if (Global.elements.findByTextOnPage(textToFind).isDisplayed()) {
+				;
+				isTextPresentOnPage = true;
+			}
+		} catch (Exception e) {
+		}
+		return isTextPresentOnPage;
+
 	}
 
 }

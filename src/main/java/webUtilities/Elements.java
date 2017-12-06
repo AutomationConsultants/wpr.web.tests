@@ -79,5 +79,13 @@ public class Elements {
 	public List<WebElement> objects(String uiObjectName) {
 		return findElements(Global.locatorProps.get(uiObjectName));
 	}
+	
+	public WebElement findSimilarByTextOnPage(String text) {
+		return findElement(byLocator("xpath", "//*[contains(text(),'$$textToFind$$')]".replace("$$textToFind$$", text)));
+	}
+	
+	public WebElement findByTextOnPage(String text) {
+		return findElement(byLocator("xpath", "//*[text()='$$textToFind$$']".replace("$$textToFind$$", text)));
+	}
 
 }
