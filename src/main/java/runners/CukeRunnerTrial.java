@@ -11,7 +11,7 @@ import cucumber.api.junit.Cucumber;
 		features = {"src/main/resources/features/Test1.feature"}, 
 		glue = { "src/main/java/steps" }, 
 		plugin = {"pretty", "html:target/cucumber"}, 
-		tags = { "~@wip" },
+		tags = { "~@wip,@test1" },
 		snippets = SnippetType.CAMELCASE)
 
 public class CukeRunnerTrial {

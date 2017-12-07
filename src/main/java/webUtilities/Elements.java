@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 import driver.Global;
 
 
-public class Elements {
+public class  Elements {
 
 	public List<WebElement> returnWebElements(String locType, String locator) {
 		return findElements(byLocator(locType, locator));

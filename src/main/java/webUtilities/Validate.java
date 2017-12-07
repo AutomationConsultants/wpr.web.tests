@@ -116,7 +116,6 @@ public class Validate {
 		boolean isTextPresentOnPage = false;
 		try {
 			if (Global.elements.findByTextOnPage(textToFind).isDisplayed()) {
-				;
 				isTextPresentOnPage = true;
 			}
 		} catch (Exception e) {
