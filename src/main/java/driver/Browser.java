@@ -8,16 +8,16 @@ import org.openqa.selenium.safari.SafariDriver;
 
 public class Browser {
 	private static final String SAFARI_DRIVER_PROP = "webdriver.safari.driver";
-	private static final String E_DRIVER_PROP = "webdriver.ie.driver";
+	private static final String IE_DRIVER_PROP = "webdriver.ie.driver";
 	private static final String GECKO_DRIVER_PROP = "webdriver.gecko.driver";
 	private static final String CHROME_DRIVER_PROP = "webdriver.chrome.driver";
-	private static final String BASE_DRIVER_PATH = "/src/main/resources/browserDrivers/";
-	private static final String IE_DRIVER_PATH = "";
-	private static final String SAFARI_DRIVER_PATH = "";
-	private static final String FIREFOX_DRIVER_PATH = "geckodriver.exe";
-	private static final String CHROME_DRIVER_PATH = "chromedriver.exe";
+	private static final String BASE_DRIVER_PATH = System.getProperty("user.dir") + "/src/main/resources/browserDrivers/";
+	private static final String IE_DRIVER_PATH = BASE_DRIVER_PATH + "";
+	private static final String SAFARI_DRIVER_PATH = BASE_DRIVER_PATH + "";
+	private static final String FIREFOX_DRIVER_PATH = BASE_DRIVER_PATH + "geckodriver.exe";
+	private static final String CHROME_DRIVER_PATH = BASE_DRIVER_PATH + "chromedriver";
 
-	public void initiateBrowser(String browser) {
+	public void initiate(String browser) {
 		WebDriver driver = null;
 		switch(browser.trim().toLowerCase()) {
 		case "chrome":
@@ -47,6 +47,11 @@ public class Browser {
 		default:
 			
 		}
+		Global.driver = driver;
+	}
+	
+	public void setup() {
+		Global.driver.get("http://wprdev.azurewebsites.net/group/4/dashboard");
 	}
 	
 	private WebDriver chrome() {
@@ -60,7 +65,7 @@ public class Browser {
 	}
 	
 	private WebDriver ie11() {
-		System.setProperty(E_DRIVER_PROP, IE_DRIVER_PATH);
+		System.setProperty(IE_DRIVER_PROP, IE_DRIVER_PATH);
 		return new InternetExplorerDriver();
 	}
 	
@@ -80,7 +85,7 @@ public class Browser {
 	}
 	
 	private WebDriver ie11Profile() {
-		System.setProperty(E_DRIVER_PROP, IE_DRIVER_PATH);
+		System.setProperty(IE_DRIVER_PROP, IE_DRIVER_PATH);
 		return new InternetExplorerDriver();
 	}
 	

@@ -46,7 +46,6 @@ public class Global {
 		wait = new Wait();
 		window = new Window();
 		button = new Button();
-		button = new Button();
 		jse = (JavascriptExecutor) driver;
 	}
 

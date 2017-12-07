@@ -18,14 +18,14 @@
 				"name": "Console-Appender",
 				"target": "SYSTEM_OUT",
 				"PatternLayout": {
-					"pattern": "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+					"pattern": "[%-5level] %C:%L ~ %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x - %msg%n"
 				}
 			},
 			"File": {
 				"name": "File-Appender",
 				"fileName": "${log-path}/logfile.log",
 				"PatternLayout": {
-					"pattern": "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+					"pattern": "[%-5level] %C:%L ~ %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x - %msg%n"
 				}
 			},
 			"RollingFile": {
@@ -33,7 +33,7 @@
 				"fileName": "${log-path}/rollingfile.log",
 				"filePattern": "${archive}/rollingfile.log.%d{yyyy-MM-dd-hh-mm}.gz",
 				"PatternLayout": {
-					"pattern": "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+					"pattern": "[%-5level] %C:%L ~ %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x - %msg%n"
 				},
 				"Policies": {
 					"SizeBasedTriggeringPolicy": {

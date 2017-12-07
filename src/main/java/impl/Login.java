@@ -1,14 +1,20 @@
 package impl;
 
-import driver.Global;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThat;  
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import driver.Global;  
 
 public class Login {
+	private static final Logger logger = LogManager.getRootLogger();
 	
 	public void perform() {
-		Global.inputfield.setText("txtUsername", "Jerri Woodard");
-		Global.inputfield.setPassword("txtPassword", "Winter24");
+		String username  = "Jerri Woodard";
+		String password = "Winter24";
+		Global.inputfield.setText("txtUsername", username);
+		Global.inputfield.setPassword("txtPassword", password);
 		Global.button.click("btnLogin");
 		assertThat(Global.validate.isElementDisplayed("txtUsername")).as("Login Failed").isFalse();
 	}

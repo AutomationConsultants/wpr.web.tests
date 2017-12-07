@@ -1,20 +1,13 @@
 package runners;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Test {
 	
+	private static Logger logger = LogManager.getRootLogger();
 	
 	
 	
@@ -70,4 +63,7 @@ public class Test {
 		}
 	    
 
+		System.setProperty("webdriver.chrome.driver", "/Users/aishvaryakapoor/Downloads/selenium/chromedriver");
+		WebDriver driver = new ChromeDriver();
+	}
 }
