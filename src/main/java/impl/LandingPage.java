@@ -17,11 +17,11 @@ public class LandingPage {
 	}
 	
 	public boolean isRightNavOpen() {
-		return Global.validate.isElementDisplayed("lstRightnav");
+		return Global.validate.isElementDisplayed("lstRightnavAcc");
 	}
 	
-	public void validateOptionOnLeftNav(String optionName) {
-		assertThat(Global.validate.isTextPresentOnPage(optionName)).isTrue();
+	public boolean validateOptionOnLeftNav(String optionName) {
+		return Global.validate.isTextPresentOnPage(optionName);
 	}
 	
 	public void validateLeftNavOptions() {
@@ -35,15 +35,21 @@ public class LandingPage {
 		validateOptionOnLeftNav("Parentage Results");
 	}
 	
-	public boolean verifyTextPresent(String textToVerify) {
-		WebElement textElement = Global.elements.findSimilarByTextOnPage(textToVerify);
-		if(textElement != null) {
-			System.out.println(textElement.getText());
-			return true;
-		} else {
-			return false;
+	public void closeRightNavIfOpen() {
+		if(isRightNavOpen()) {
+			clickOnRightNavButton();
 		}
-		
 	}
+	
+	public void openRightNavIfClosed() {
+		if(!isRightNavOpen()) {
+			clickOnRightNavButton();
+		}
+	}
+	
+	public void clickOnRightNavButton() {
+		Global.elements.object("btnRightNav").click();
+	}
+	
 
 }

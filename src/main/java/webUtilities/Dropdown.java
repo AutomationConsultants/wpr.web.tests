@@ -9,12 +9,10 @@ import driver.Global;
 
 public class Dropdown {
 
-	Elements common = new Elements();
-
 	public void selectByIndex(String uiObjectName, int index) {
 		Select select = null;
 		try {
-			select = new Select(common.object(uiObjectName));
+			select = new Select(Global.elements.object(uiObjectName));
 			select.selectByIndex(index);
 		} catch (Exception e) {
 
@@ -24,7 +22,7 @@ public class Dropdown {
 	public void selectByValue(String uiObjectName, String value) {
 		Select select = null;
 		try {
-			select = new Select(common.object(uiObjectName));
+			select = new Select(Global.elements.object(uiObjectName));
 			select.selectByValue(value);
 		} catch (Exception e) {
 
@@ -34,7 +32,7 @@ public class Dropdown {
 	public void selectByVisibleText(String uiObjectName, String visibleText) {
 		Select select = null;
 		try {
-			select = new Select(common.object(uiObjectName));
+			select = new Select(Global.elements.object(uiObjectName));
 			select.selectByVisibleText(visibleText);
 		} catch (Exception e) {
 
@@ -44,7 +42,7 @@ public class Dropdown {
 	public List<WebElement> getAllSelectedOptions(String uiObjectName) {
 		Select select = null;
 		try {
-			select = new Select(common.object(uiObjectName));
+			select = new Select(Global.elements.object(uiObjectName));
 			return select.getAllSelectedOptions();
 		} catch (Exception e) {
 			return null;
@@ -54,7 +52,7 @@ public class Dropdown {
 	public WebElement getSelectedOption(String uiObjectName) {
 		Select select = null;
 		try {
-			select = new Select(common.object(uiObjectName));
+			select = new Select(Global.elements.object(uiObjectName));
 			return select.getFirstSelectedOption();
 		} catch (Exception e) {
 			return null;

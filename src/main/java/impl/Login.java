@@ -10,13 +10,13 @@ import driver.Global;
 public class Login {
 	private static final Logger logger = LogManager.getRootLogger();
 	
-	public void perform() {
+	public boolean perform() {
 		String username  = "Jerri Woodard";
 		String password = "Winter24";
 		Global.inputfield.setText("txtUsername", username);
 		Global.inputfield.setPassword("txtPassword", password);
 		Global.button.click("btnLogin");
-		assertThat(Global.validate.isElementDisplayed("txtUsername")).as("Login Failed").isFalse();
+		return Global.validate.isElementDisplayed("txtUsername");
 	}
 
 }

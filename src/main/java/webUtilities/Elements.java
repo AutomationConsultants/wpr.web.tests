@@ -11,7 +11,7 @@ import driver.Global;
 
 
 public class  Elements {
-
+	
 	public List<WebElement> returnWebElements(String locType, String locator) {
 		return findElements(byLocator(locType, locator));
 	}
@@ -49,6 +49,7 @@ public class  Elements {
 	}
 
 	public List<WebElement> findElements(By by) {
+		new Wait().forAngularLoad();
 		List<WebElement> elements = null;
 		try {
 			elements = Global.driver.findElements(by);
@@ -61,6 +62,7 @@ public class  Elements {
 	}
 
 	public WebElement findElement(By by) {
+		Global.wait.forAngularLoad();
 		WebElement element = null;
 		try {
 			element = Global.driver.findElement(by);

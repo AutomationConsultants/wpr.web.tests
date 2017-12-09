@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(features = {"features"}, 
 glue = {"steps"}, 
 plugin = {"pretty", "json:results/cucumber.json"}, 
-tags = {"~@wip"},
+tags = {"~@wip","@subGroups"},
 snippets = SnippetType.CAMELCASE)
 
 public class CukeRunner {

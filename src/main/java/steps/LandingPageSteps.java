@@ -19,6 +19,7 @@ import cucumber.api.java.en.When;
 import driver.Browser;
 import driver.Global;
 import excelUtilities.ExcelReader;
+import fileUtilities.PropertiesLoader;
 import impl.LandingPage;
 import impl.Login;
 import runners.Hooks;  
@@ -33,8 +34,10 @@ public class LandingPageSteps {
 	@Before
 	public void setup() {
 		browser.initiate("chrome");
-		browser.setup();
 		new Global();
+		new PropertiesLoader().loadProps();
+		
+		browser.setup();
 		new ExcelReader().loadObjectsFromExcel(new File(System.getProperty("user.dir") + "/src/test/resources/orproperties.xlsx/"));
 		logger.info("Browser initiated");
 	}
@@ -46,31 +49,30 @@ public class LandingPageSteps {
 			Global.driver.quit();
 			logger.info("Browser closed");
 		}
-		
 	}
 	
 
 	
 	@Given("^login is completed on world pet registry website$")
 	public void loginIsCompletedOnWorldPetRegistryWebsite() {
-		login.perform();
+		assertThat(login.perform()).as("Login Failed").isFalse();
 	}
 
 	@Then("^validate that the left navigation is open$")
 	public void validateThatTheLeftNavigationIsOpen() {
-		landingPage.isLeftNavOpen();
+		assertThat(landingPage.isLeftNavOpen()).as("Left Nav not open").isTrue();
 	}
 
 	@Then("^validate that the following text is displayed on the page$")
 	public void validateThatTextsAreDisplayed(List<String> textToVerifyList) {
 		for (String textToVerify : textToVerifyList) {
-			assertThat(landingPage.verifyTextPresent(textToVerify)).as("Failed to find:" + textToVerify).isTrue();
+			assertThat(Global.validate.verifyTextPresent(textToVerify)).as("Failed to find:" + textToVerify).isTrue();
 		}
 	}
 	
 	@Then("^validate that text \"([^\"]*)\" is displayed on the page$")
 	public void validateThatTextIsDisplayed(String textToVerify) {
-		assertThat(landingPage.verifyTextPresent(textToVerify)).as("Failed to find:" + textToVerify).isTrue();
+		assertThat(Global.validate.verifyTextPresent(textToVerify)).as("Failed to find:" + textToVerify).isTrue();
 	}
 	
 	@Then("^validate that texts are \"([^\"]*)\" displayed on the page$")
@@ -82,7 +84,7 @@ public class LandingPageSteps {
 	@Then("^validate that options are displayed in the left navigation panel$")
 	public void validateThatOptionsAreDisplayedInTheLeftNavigationPanel(List<String> leftNavOptions) {
 		for (String optionName : leftNavOptions) {
-			landingPage.validateOptionOnLeftNav(optionName);
+			assertThat(landingPage.validateOptionOnLeftNav(optionName)).as("Left nav is not open").isTrue();
 		}
 	}
 	
@@ -100,36 +102,39 @@ public class LandingPageSteps {
 	@Then("^validate that following fields are displayed on the page$")
 	public void validateThatFollowingFieldsAreDisplayed(List<String> fieldList) {
 		for (String uiObjectName : fieldList) {
-			Global.validate.isElementDisplayedImmediately(uiObjectName);
+			assertThat(Global.validate.isElementDisplayedImmediately(uiObjectName)).as(uiObjectName + " is not displayed").isTrue();
 		}
 	}
 	
 	@Then("^validate that there is data in the table$")
 	public void validateThatThereIsDataInTheTable() {
 		List<WebElement> rowList = Global.elements.objects("tblTable");
-		assertThat(rowList).isNotNull().size().isGreaterThan(0);
+		assertThat(rowList).as(rowList + " Table is missing").isNotNull().size().as("Number of rows in the table: " + rowList.size()).isGreaterThan(0);
 	}
 
 	@When("^validate the pagination at the bottom is displayed$")
 	public void validateThePaginationAtTheBottom() {
-		assertThat(Global.elements.object("tblPagination")).isNotNull();
+		assertThat(Global.elements.object("tblPagination")).as("Pagination is missing").isNotNull();
 		assertThat(Global.elements.object("tblPagination").isDisplayed()).as("Pagination is not displayed").isTrue();
 	}
 	
-	@When("^right nav button is clicked$")
-	public void rightNavButtonIssClicked() {
-	    Global.elements.object("btnRightNav");
+	@When("^right nav is opened$")
+	public void rightNavIsOpened() {
+		landingPage.openRightNavIfClosed();
+	}
+	
+	@When("^right nav is closed$")
+	public void rightNavIsCLOSED() {
+		landingPage.closeRightNavIfOpen();
 	}
 
 	@Then("^validate that the right nav has accounts$")
 	public void validateThatTheRightNavHasAccounts() {
-	    if(landingPage.isRightNavOpen()) {
-	    		List<WebElement> rightNavAccList = Global.elements.objects("lstRightnavAcc");
-	    		assertThat(rightNavAccList).as("No list in the right nav").isNotNull().size().as("Right nav is blank").isGreaterThan(0);
-	    		for (WebElement acc : rightNavAccList) {
-					System.out.println(acc.getText());
-				}
-	    }
+    		List<WebElement> rightNavAccList = Global.elements.objects("lstRightnavAcc");
+    		assertThat(rightNavAccList).as("No list in the right nav").isNotNull().size().as("Right nav is blank").isGreaterThan(0);
+    		for (WebElement acc : rightNavAccList) {
+				System.out.println(acc.getText());
+			}
 	}
 
 }

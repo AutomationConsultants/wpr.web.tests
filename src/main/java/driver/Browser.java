@@ -1,5 +1,7 @@
 package driver;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -7,6 +9,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 public class Browser {
+	private static final int DEFAULT_DRIVER_TIMEOUT = 30;
 	private static final String SAFARI_DRIVER_PROP = "webdriver.safari.driver";
 	private static final String IE_DRIVER_PROP = "webdriver.ie.driver";
 	private static final String GECKO_DRIVER_PROP = "webdriver.gecko.driver";
@@ -51,6 +54,9 @@ public class Browser {
 	}
 	
 	public void setup() {
+		Global.driver.manage().timeouts().implicitlyWait(DEFAULT_DRIVER_TIMEOUT, TimeUnit.SECONDS); 
+		Global.driver.manage().deleteAllCookies(); 
+		Global.driver.manage().window().maximize();
 		Global.driver.get("http://wprdev.azurewebsites.net/group/4/dashboard");
 	}
 	

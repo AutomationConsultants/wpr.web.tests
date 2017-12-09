@@ -8,6 +8,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,7 +16,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import driver.Global;
 
 public class Wait {
-	Elements common = new Elements();
 
 	public void forPageToLoad() {
 		new WebDriverWait(Global.driver, 30).until(webDriver -> ((JavascriptExecutor) webDriver)
@@ -24,7 +24,7 @@ public class Wait {
 
 	public WebElement fluentForElement(String uiObjectName) {
 		try {
-			 return fluentWait(30).until(ExpectedConditions.visibilityOf(common.object(uiObjectName)));
+			 return fluentWait(30).until(ExpectedConditions.visibilityOf(Global.elements.object(uiObjectName)));
 		} catch (Exception e) {
 			return null;
 		}
@@ -38,7 +38,7 @@ public class Wait {
 
 	public WebElement fluentForElementWithoutWait(String uiObjectName) {
 		try {
-			return fluentWait(0).until(ExpectedConditions.visibilityOf(common.object(uiObjectName)));
+			return fluentWait(0).until(ExpectedConditions.visibilityOf(Global.elements.object(uiObjectName)));
 		} catch (Exception e) {
 			return null;
 		}
@@ -46,10 +46,27 @@ public class Wait {
 
 	public WebElement fluentForElementForSecs(String uiObjectName, int seconds) {
 		try {
-			return fluentWait(seconds).until(ExpectedConditions.visibilityOf(common.object(uiObjectName)));
+			return fluentWait(seconds).until(ExpectedConditions.visibilityOf(Global.elements.object(uiObjectName)));
 		} catch (Exception e) {
 			return null;
 		}
 	}
+	
+    public void forAngularLoad() {
+        WebDriverWait wait = new WebDriverWait(Global.driver,15);
+        String angularReadyScript = "return angular.element(document).injector().get('$http').pendingRequests.length === 0";
+        //Wait for ANGULAR to load
+        ExpectedCondition<Boolean> angularLoad = driver -> Boolean.valueOf(((JavascriptExecutor) driver).executeScript(angularReadyScript).toString());
+        //Get Angular is Ready
+        boolean angularReady = Boolean.parseBoolean(Global.jse.executeScript(angularReadyScript).toString());
+        //Wait ANGULAR until it is Ready!
+        if(!angularReady) {
+            System.out.println("ANGULAR is NOT Ready!");
+            //Wait for Angular to load
+            wait.until(angularLoad);
+        } else {
+            System.out.println("ANGULAR is Ready!");
+        }
+    }
 
 }

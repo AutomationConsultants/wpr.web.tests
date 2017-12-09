@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.openqa.selenium.WebElement;
 
+import driver.Global;
+
 public class Link {
-	Elements common = new Elements();
 
 	public List<WebElement> getAll(String uiObjectName) {
 		try {
-			return common.objects(uiObjectName);
+			return Global.elements.objects(uiObjectName);
 		} catch (Exception e) {
 			return null;
 		}
@@ -24,7 +25,7 @@ public class Link {
 	
 	public WebElement get(String uiObjectName) {
 		try {
-			return common.object(uiObjectName);
+			return Global.elements.object(uiObjectName);
 		} catch (Exception e) {
 			return null;
 		}
@@ -32,7 +33,7 @@ public class Link {
 	
 	public void click(String uiObjectName) {
 		try {
-			common.object(uiObjectName).click();
+			Global.elements.object(uiObjectName).click();
 		} catch (Exception e) {
 			
 		}
