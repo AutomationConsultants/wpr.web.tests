@@ -3,6 +3,8 @@ package webUtilities;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -11,6 +13,8 @@ import driver.Global;
 
 
 public class  Elements {
+	
+	private static Logger logger = LogManager.getRootLogger();
 	
 	public List<WebElement> returnWebElements(String locType, String locator) {
 		return findElements(byLocator(locType, locator));
@@ -54,9 +58,9 @@ public class  Elements {
 		try {
 			elements = Global.driver.findElements(by);
 		} catch (NoSuchElementException e) {
-
+			logger.info(e);
 		} catch (Exception e) {
-
+			logger.info(e);
 		}
 		return elements;
 	}
@@ -67,9 +71,9 @@ public class  Elements {
 		try {
 			element = Global.driver.findElement(by);
 		} catch (NoSuchElementException e) {
-
-		} catch (Exception e) {
-
+			logger.info(e);
+		} catch (Exception e) {	
+			logger.info(e);
 		}
 		return element;
 	}

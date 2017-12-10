@@ -44,6 +44,7 @@ public class LandingPageSteps {
 	
 	@After
 	public void tearDown() {
+		Global.screenshot.take();
 		if(Global.driver != null) {
 			Global.driver.close();
 			Global.driver.quit();
@@ -124,7 +125,7 @@ public class LandingPageSteps {
 	}
 	
 	@When("^right nav is closed$")
-	public void rightNavIsCLOSED() {
+	public void rightNavIsClosed() {
 		landingPage.closeRightNavIfOpen();
 	}
 
@@ -132,9 +133,20 @@ public class LandingPageSteps {
 	public void validateThatTheRightNavHasAccounts() {
     		List<WebElement> rightNavAccList = Global.elements.objects("lstRightnavAcc");
     		assertThat(rightNavAccList).as("No list in the right nav").isNotNull().size().as("Right nav is blank").isGreaterThan(0);
-    		for (WebElement acc : rightNavAccList) {
-				System.out.println(acc.getText());
-			}
+		for (WebElement acc : rightNavAccList) {
+			logger.info(acc.getText());
+		}
+	}
+	
+	public void a() {
+		List<WebElement> rightNavAccList = Global.elements.objects("lstRightnavAcc");
+		assertThat(rightNavAccList).as("No list in the right nav").isNotNull().size().as("Right nav is blank").isGreaterThan(0);
+		for (WebElement acc : rightNavAccList) {
+			acc.click();
+			String accountText = acc.getText();
+			String header = Global.elements.object("lblHeader").getText();
+			assertThat(header).as("Clicked on:" + accountText + " but header is: " + header).isEqualTo(accountText);
+		}
 	}
 
 }

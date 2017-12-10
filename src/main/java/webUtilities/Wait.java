@@ -2,6 +2,8 @@ package webUtilities;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -16,6 +18,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import driver.Global;
 
 public class Wait {
+	
+	private static Logger logger = LogManager.getRootLogger();
 
 	public void forPageToLoad() {
 		new WebDriverWait(Global.driver, 30).until(webDriver -> ((JavascriptExecutor) webDriver)
@@ -26,6 +30,7 @@ public class Wait {
 		try {
 			 return fluentWait(30).until(ExpectedConditions.visibilityOf(Global.elements.object(uiObjectName)));
 		} catch (Exception e) {
+			logger.info(e);
 			return null;
 		}
 	}
@@ -40,6 +45,7 @@ public class Wait {
 		try {
 			return fluentWait(0).until(ExpectedConditions.visibilityOf(Global.elements.object(uiObjectName)));
 		} catch (Exception e) {
+			logger.info(e);
 			return null;
 		}
 	}
@@ -48,6 +54,7 @@ public class Wait {
 		try {
 			return fluentWait(seconds).until(ExpectedConditions.visibilityOf(Global.elements.object(uiObjectName)));
 		} catch (Exception e) {
+			logger.info(e);
 			return null;
 		}
 	}

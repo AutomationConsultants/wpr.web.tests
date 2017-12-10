@@ -1,12 +1,16 @@
 package webUtilities;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import driver.Global;
 
 public class Validate {
+	
+	private static Logger logger = LogManager.getRootLogger();
 
 	public boolean linkContains(String uiObjectName, String expected) {
 		boolean linkContains = false;
@@ -16,6 +20,9 @@ public class Validate {
 			linkText = element.getAttribute("href");
 			if(StringUtils.contains(linkText, expected)) {
 				linkContains = true;
+				logger.info(uiObjectName + " has link- " + linkText);
+			} else {
+				logger.info(uiObjectName + "link does not contain text " + expected + ". Link text is " + linkText);
 			}
 		}
 		return linkContains;
@@ -27,6 +34,7 @@ public class Validate {
 		} catch (NoSuchElementException e) {
 			return false;
 		} catch (Exception e) {
+			logger.info(e);
 			return false;
 		}
 	}
@@ -37,6 +45,7 @@ public class Validate {
 		} catch (NoSuchElementException e) {
 			return false;
 		} catch (Exception e) {
+			logger.info(e);
 			return false;
 		}
 	}
@@ -47,6 +56,7 @@ public class Validate {
 		} catch (NoSuchElementException e) {
 			return false;
 		} catch (Exception e) {
+			logger.info(e);
 			return false;
 		}
 	}
@@ -56,6 +66,7 @@ public class Validate {
 		String actual = Global.inputfield.getText(uiObjectName);
 		if(actual != null && expected.trim().equalsIgnoreCase(actual.trim())) {
 			expActualSame = true;
+			logger.info(uiObjectName + " has text value " + expected);
 		} 
 		return expActualSame;
 	}
@@ -68,6 +79,7 @@ public class Validate {
 			actual = element.getText();
 			if(actual != null && expected.trim().equalsIgnoreCase(actual.trim())) {
 				textOfDropdown = true;
+				logger.info(uiObjectName + " has text value " + expected);
 			}
 		}
 		return textOfDropdown;
@@ -79,9 +91,10 @@ public class Validate {
 		try {
 			if(button.isSelected()) {
 				isRadioSelected = true;
+				logger.info(uiObjectName + " radio button is selected");
 			}
 		} catch (Exception e) {
-			
+			logger.info(e);
 		}
 		return isRadioSelected;
 	}
@@ -92,9 +105,10 @@ public class Validate {
 		try {
 			if(!button.isSelected()) {
 				isRadioNotSelected = true;
+				logger.info(uiObjectName + " radio button is not selected");
 			}
 		} catch (Exception e) {
-			
+			logger.info(e);
 		}
 		return isRadioNotSelected;
 	}
@@ -112,17 +126,18 @@ public class Validate {
 		try {
 			if (Global.elements.findByTextOnPage(textToFind).isDisplayed()) {
 				isTextPresentOnPage = true;
+				logger.info(textToFind + " is present on the page");
 			}
 		} catch (Exception e) {
+			logger.info(e);
 		}
 		return isTextPresentOnPage;
-
 	}
 	
 	public boolean verifyTextPresent(String textToVerify) {
 		WebElement textElement = Global.elements.findSimilarByTextOnPage(textToVerify);
 		if(textElement != null) {
-			System.out.println(textElement.getText());
+			logger.info("Similar to " + textToVerify + " is present on the page");
 			return true;
 		} else {
 			return false;

@@ -16,9 +16,11 @@ public class Checkbox {
 			element = Global.elements.object(uiObjectName);
 			if (element != null && !element.isSelected()) {
 				element.click();
+				logger.info("Clicked on checkbox: " + uiObjectName + ". Checkbox checked.");
 			}
 		} catch (Exception e) {
-
+			logger.info("Error while clicking checkbox " + uiObjectName);
+			logger.info(e);
 		}
 	}
 
@@ -28,9 +30,10 @@ public class Checkbox {
 			element = Global.elements.object(uiObjectName);
 			if (element != null && element.isSelected()) {
 				element.click();
+				logger.info("Click on checkbox " + uiObjectName + ". Checkbox unchecked.");
 			}
 		} catch (Exception e) {
-
+			logger.info(e);
 		}
 	}
 
