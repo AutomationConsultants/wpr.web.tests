@@ -138,7 +138,7 @@ public class LandingPageSteps {
 		}
 	}
 	
-	public void a() {
+	public void val() {
 		List<WebElement> rightNavAccList = Global.elements.objects("lstRightnavAcc");
 		assertThat(rightNavAccList).as("No list in the right nav").isNotNull().size().as("Right nav is blank").isGreaterThan(0);
 		for (WebElement acc : rightNavAccList) {

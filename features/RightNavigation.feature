@@ -8,4 +8,5 @@ When right nav is opened
 Then validate that the right nav has accounts
 
 Scenario: Validate that the correct account opens
-When
+When right nav is opened
+Then validate that the correct dashboard page is opened for each account

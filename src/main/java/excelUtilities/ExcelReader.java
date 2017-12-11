@@ -30,7 +30,6 @@ public class ExcelReader {
 	private static final String LOCATOR_VALUE = "locatorValue";
 	private static final String LOCATOR_TYPE = "locatorType";
 	private static final String UI_OBJ_NAME = "uiObjName";
-	Elements commonWeb = new Elements();
 	List<String> errorLocatorList = new ArrayList<>();
 
 	public List<HashMap<String, List<LinkedHashMap<String, String>>>> loadExcelData(File fileName) {
@@ -94,7 +93,7 @@ public class ExcelReader {
 
 	}
 
-	public List<HashMap<String, List<LinkedHashMap<String, String>>>> loadObjectsFromExcel(File fileName) {
+	public List<HashMap<String, List<HashMap<String, String>>>> loadObjectsFromExcel(File fileName) {
 		String sheetName;
 		FileInputStream fis = null;
 		List allSheetData = Lists.newArrayList();
@@ -125,22 +124,22 @@ public class ExcelReader {
 						}
 					} else {
 						Iterator headerCells = sheetHeaders.iterator();
-						rowData = Maps.newLinkedHashMap();
+						rowData = Maps.newHashMap();
 						while (cells.hasNext()) {
 							XSSFCell cell = (XSSFCell) cells.next();
 							cell.setCellType(Cell.CELL_TYPE_STRING);
 							rowData.put(headerCells.next(), cell);
 						}
 						rowList.add(rowData);
-						By by = commonWeb.byLocator(rowData.get(LOCATOR_TYPE).toString(), rowData.get(LOCATOR_VALUE).toString());
-						Global.locatorProps.put(rowData.get(UI_OBJ_NAME).toString(), by);
-						if(by == null) {
-							errorLocatorList.add(rowData.get(UI_OBJ_NAME).toString());
-						}
+//						By by = Global.elements.byLocator(rowData.get(LOCATOR_TYPE).toString(), rowData.get(LOCATOR_VALUE).toString());
+//						Global.locatorProps.put(rowData.get(UI_OBJ_NAME).toString(), by);
+//						if(by == null) {
+//							errorLocatorList.add(rowData.get(UI_OBJ_NAME).toString());
+//						}
 					}
 				}
 				sheetData.put(sheetName, rowList);
-				validateLocatorTypes();
+//				validateLocatorTypes();
 
 			}
 			allSheetData.add(sheetData);
