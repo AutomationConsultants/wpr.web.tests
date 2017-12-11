@@ -1,7 +1,5 @@
 package impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

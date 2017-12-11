@@ -9,8 +9,8 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(features = {"features"}, 
 glue = {"steps"}, 
-plugin = {"pretty", "json:results/cucumber.json"}, 
-tags = {"~@wip","@subGroups"},
+plugin = {"pretty", "json:target/results/cucumber.json"}, 
+tags = {"~@wip","@rightNavAll"},
 snippets = SnippetType.CAMELCASE)
 
 public class CukeRunner {

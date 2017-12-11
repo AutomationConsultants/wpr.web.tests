@@ -18,7 +18,7 @@ public class Screenshot {
 	private static final String SEPARATOR = "/";
 	private static Logger logger = LogManager.getRootLogger();
 	private static final String SCREENSHOT_OUTPUT = "screenshotOutput";
-	private static final String DEFAULT_SCREENSHOT_PATH = "/target/Automation/Output/Screenshots/";
+	private static final String DEFAULT_SCREENSHOT_PATH = System.getProperty("user.dir") + "/target/Automation/Output/Screenshots/";
 
 	public void take(String outputPath) {
 		try {
