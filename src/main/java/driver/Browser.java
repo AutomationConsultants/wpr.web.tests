@@ -57,7 +57,7 @@ public class Browser {
 		Global.driver.manage().timeouts().implicitlyWait(DEFAULT_DRIVER_TIMEOUT, TimeUnit.SECONDS); 
 		Global.driver.manage().deleteAllCookies(); 
 		Global.driver.manage().window().maximize();
-		Global.driver.get("http://wprdev.azurewebsites.net/group/4/dashboard");
+		Global.driver.get(Global.testProps.getProperty("appurl"));
 	}
 	
 	private WebDriver chrome() {

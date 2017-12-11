@@ -1,6 +1,7 @@
 package driver;
 
 import java.util.HashMap;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -33,6 +34,7 @@ public class Global {
 	public static JavascriptExecutor jse = null;
 	public static WebDriver driver = null;
 	public static HashMap<String,By> locatorProps = Maps.newHashMap();
+	public static Properties testProps = null;
 	
 	public Global() {
 		button = new Button();
@@ -46,7 +48,7 @@ public class Global {
 		wait = new Wait();
 		window = new Window();
 		button = new Button();
-		jse = (JavascriptExecutor) driver;
+		testProps = new Properties();
 	}
 
 }

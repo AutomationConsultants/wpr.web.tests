@@ -71,7 +71,7 @@ public class  Elements {
 		try {
 			element = Global.driver.findElement(by);
 		} catch (NoSuchElementException e) {
-			logger.info(e);
+			logger.info(e.getMessage());
 		} catch (Exception e) {	
 			logger.info(e);
 		}

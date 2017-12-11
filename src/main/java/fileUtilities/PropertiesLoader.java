@@ -10,24 +10,25 @@ import org.apache.commons.lang3.StringUtils;
 import driver.Global;
 
 public class PropertiesLoader {
-	private final String DEFAULT_PROPERTY_FILE_PATH = "/PropertyFiles/FrameworkDefaultProperties.properties"; 
+	private final String FRAMEOWRK_PROPERTY_FILE_PATH = "/PropertyFiles/FrameworkDefaultProperties.properties"; 
 	private final String OBJECT_PROPERTY_FILE_PATH = "/PropertyFiles/WPR_OR.properties"; 
-	private static Properties configProp = new Properties();
+	private final String PROJECT_PROPERTY_FILE_PATH = "/SystemProperties.properties";
 	private static Properties objectsProp = new Properties();
 	
 	public void loadProps() {
-		InputStream in = this.getClass().getResourceAsStream(DEFAULT_PROPERTY_FILE_PATH);
+		InputStream fwkPropIn = this.getClass().getResourceAsStream(FRAMEOWRK_PROPERTY_FILE_PATH);
 		InputStream objIn = this.getClass().getResourceAsStream(OBJECT_PROPERTY_FILE_PATH);
+		InputStream projectPropIn = this.getClass().getResourceAsStream(PROJECT_PROPERTY_FILE_PATH);
 		try {
-			configProp.load(in);
+			Global.testProps.load(fwkPropIn);
+			Global.testProps.load(projectPropIn);
 			objectsProp.load(objIn);
-			loadObjects();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void loadObjects() {
+	public void loadObjects() {
 		for (Entry<Object, Object> entry: objectsProp.entrySet()) {
 		    String key = (String) entry.getKey();
 		    String value = (String) entry.getValue();
@@ -36,13 +37,4 @@ public class PropertiesLoader {
 		    Global.locatorProps.put(key, Global.elements.byLocator(locType, locator));
 		}
 	}
-	
-	public Properties getConfigProp() {
-		return configProp;
-	}
-
-	public void setConfigProp(Properties configProp) {
-		this.configProp = configProp;
-	}
-
 }

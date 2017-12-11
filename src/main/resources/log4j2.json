@@ -23,7 +23,7 @@
 			},
 			"File": {
 				"name": "File-Appender",
-				"fileName": "${log-path}/logfile.log",
+				"fileName": "${user.dir}/${log-path}/logfile.log",
 				"PatternLayout": {
 					"pattern": "[%-5level] %C:%L ~ %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x - %msg%n"
 				}
