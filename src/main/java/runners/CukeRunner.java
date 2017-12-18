@@ -15,5 +15,9 @@ snippets = SnippetType.CAMELCASE)
 
 public class CukeRunner {
 	
+	public CukeRunner() {
+		System.out.println(getClass().getClassLoader().getResource("logging.properties"));
+	}
+	
 
 }
