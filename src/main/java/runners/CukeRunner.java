@@ -7,10 +7,10 @@ import cucumber.api.SnippetType;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = {"features"}, 
+@CucumberOptions(features = {"features/Test.feature"}, 
 glue = {"steps"}, 
 plugin = {"pretty", "json:target/results/cucumber.json"}, 
-tags = {"~@wip","@rightNavAll"},
+tags = {"@test"},
 snippets = SnippetType.CAMELCASE)
 
 public class CukeRunner {
