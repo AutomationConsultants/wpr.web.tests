@@ -1,5 +1,8 @@
 
 *.DS_Store
-/target/
+/target/*
 *.class
 *.prefs
+.classpath
+.project
+/target/
