@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite failures="0" name="cucumber.runtime.formatter.JUnitFormatter" skipped="0" tests="1" time="112.012668">
+<testcase classname="Validate right navigation panel" name="Validate that the correct account opens on right nav" time="112.012668">
+<system-out><![CDATA[Given login is completed on world pet registry website......................passed
+When right nav is opened....................................................passed
+Then validate that the correct dashboard page is opened for each account in right nav.passed
+]]></system-out>
+</testcase>
+</testsuite>

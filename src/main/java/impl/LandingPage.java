@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import driver.Global;
 
+
 public class LandingPage {
 	
 	private static Logger logger = LogManager.getRootLogger();

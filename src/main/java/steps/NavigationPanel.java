@@ -28,8 +28,7 @@ public class NavigationPanel {
 	
 	@Before
 	public void setup() {
-		new Global();
-		new PropertiesLoader().loadProps();
+		
 		browser.initiate(Global.testProps.getProperty("browser"));
 		logger.info("Browser initiated");
 		new PropertiesLoader().loadObjects();
