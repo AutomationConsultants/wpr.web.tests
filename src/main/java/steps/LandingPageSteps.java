@@ -21,22 +21,22 @@ public class LandingPageSteps {
 		}
 	}
 	
-	@Then("^validate that text \"([^\"]*)\" is displayed on the page$")
-	public void validateThatTextIsDisplayed(String textToVerify) {
-		assertThat(Global.validate.verifyTextPresent(textToVerify)).as("Failed to find:" + textToVerify).isTrue();
-	}
+//	@Then("^validate that text \"([^\"]*)\" is displayed on the page$")
+//	public void validateThatTextIsDisplayed(String textToVerify) {
+//		assertThat(Global.validate.verifyTextPresent(textToVerify)).as("Failed to find:" + textToVerify).isTrue();
+//	}
+//	
+//	@Then("^validate that texts are \"([^\"]*)\" displayed on the page$")
+//	public void validateThatTextsAreDisplayed(String strTextToVerifyList) {
+//		List<String> textToVerifyList = Arrays.asList(StringUtils.split(strTextToVerifyList, ","));
+//		validateThatTextsAreDisplayed(textToVerifyList);
+//	}
 	
-	@Then("^validate that texts are \"([^\"]*)\" displayed on the page$")
-	public void validateThatTextsAreDisplayed(String strTextToVerifyList) {
-		List<String> textToVerifyList = Arrays.asList(StringUtils.split(strTextToVerifyList, ","));
-		validateThatTextsAreDisplayed(textToVerifyList);
-	}
-	
-	@Then("^validate that the following fields are displayed \"([^\"]*)\" on the page$")
-	public void validateThatFollowingFieldsAreDisplayed(String strFieldList) {
-		List<String> fieldList = Arrays.asList(StringUtils.split(strFieldList, ","));
-		validateThatFollowingFieldsAreDisplayed(fieldList);
-	}
+//	@Then("^validate that the following fields are displayed \"([^\"]*)\" on the page$")
+//	public void validateThatFollowingFieldsAreDisplayed(String strFieldList) {
+//		List<String> fieldList = Arrays.asList(StringUtils.split(strFieldList, ","));
+//		validateThatFollowingFieldsAreDisplayed(fieldList);
+//	}
 	
 	@Then("^validate that following fields are displayed on the page$")
 	public void validateThatFollowingFieldsAreDisplayed(List<String> fieldList) {
@@ -49,6 +49,8 @@ public class LandingPageSteps {
 	public void validateThatThereIsDataInTheTable() {
 		List<WebElement> rowList = Global.elements.objects("tblTable");
 		assertThat(rowList).as(rowList + " Table is missing").isNotNull().size().as("Number of rows in the table: " + rowList.size()).isGreaterThan(0);
+		System.out.println("Number of rows: "+ rowList.size());
+		System.out.println("Row data: " + rowList.get(0).toString());
 	}
 
 	@When("^validate the pagination at the bottom is displayed$")

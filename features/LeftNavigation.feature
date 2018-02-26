@@ -22,7 +22,15 @@ Feature: Left navigation panel
       | Waste Samples |
       | Pet Owners    |
     When "Detail" link is clicked on the left navigation
-    Then validate that the following fields are displayed "txtName,btnSubmit,txtEmail,txtPhone,txtTollFreeNumber,txtDescription,txtHours,txtWebsite" on the page
+    Then validate that following fields are displayed on the page
+      | txtName           |
+      | btnSubmit         |
+      | txtEmail          |
+      | txtPhone          |
+      | txtTollFreeNumber |
+      | txtDescription    |
+      | txtHours          |
+      | txtWebsite        |
     When "Sub-Groups" link is clicked on the left navigation
     Then validate that the following text is displayed on the page
       | Group Name        |
@@ -32,7 +40,13 @@ Feature: Left navigation panel
       | City              |
       | State             |
       | Actions           |
-     And validate that the following fields are displayed "txtName,txtPhone,txtGroupType,txtParentName,txtCity,txtState" on the page
+     And validate that following fields are displayed on the page
+      | txtName       |
+      | txtPhone      |
+      | txtGroupType  |
+      | txtParentName |
+      | txtCity       |
+      | txtState      |
      And validate that there is data in the table
      And validate the pagination at the bottom is displayed
     When "Admins" link is clicked on the left navigation
