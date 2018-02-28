@@ -3,11 +3,10 @@ package steps.sections;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
@@ -15,8 +14,13 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import driver.Global;
+import steps.NavigationPanel;
+import steps.ValidateCommonSteps;
 
 public class AdminPageSteps {
+	
+	NavigationPanel navigationPanel = new NavigationPanel();
+	ValidateCommonSteps validateSteps = new ValidateCommonSteps();
 	
 	@Then("^validate that the following fields are displayed$")
 	public void validateThatTheFollowingFieldsAreDisplayed(List<String> fieldList) {
@@ -54,31 +58,67 @@ public class AdminPageSteps {
 		}
 	}
 	
-	@Then("^validate that there are not error messages$")
-	public void validateThatThereAreNotErrorMessages() {
-		String addAdminError = Global.inputfield.getText("lblAdminAddError");
+	@Then("^validate that there are no error messages$")
+	public void validateThatThereAreNoErrorMessages() {
+		String addAdminError = Global.inputfield.getText("lblAdminModalMsg");
 		assertThat(addAdminError).as("Failed to add admin. Error: " + addAdminError).isBlank();
 	}
 	
 	@Then("^validate admin details page$")
 	public void validateAdminDetailsPage() {
 		List<WebElement> adminList = Global.elements.objects("lblAdminNameList");
-		for (WebElement adminName : adminList) {
-			System.out.println("Validating admin details for: " + adminName.getText());
-			Global.button.click(adminName);
+		if(CollectionUtils.isNotEmpty(adminList)) {
+			for (WebElement adminName : adminList) {
+				openAdminDetailsPageAndValidate(adminName);
+			}
+		} else {
+			System.out.println("Could not find any admin with selected criteria");
 		}
 	}
 	
-	private void validateAdminPage() {
-		
+	@When("^admin details page is opened for the admin$")
+	public void adminDetailsPageIsOpenedForTheAdmin() {
+		List<WebElement> adminList = Global.elements.objects("lblAdminNameList");
+		if(CollectionUtils.isNotEmpty(adminList)) {
+			openAdminDetailsPageAndValidate(adminList.get(0));
+			navigationPanel.linkIsClickedOnTheLeftNavigation("Admins");
+		} else {
+			System.out.println("Could not find any admin with selected criteria");
+		}
 	}
 	
-	@Then("^validate that the following error messages are displayed while creating a new admin \"([^\"]*)\"$")
+	@When("^log user and new password$")
+	public void logUserAndNewPwd() {
+		System.out.println("User: " + Global.inputfield.getText("lblAdminPwdResetUser"));
+		System.out.println("New Password: " + Global.inputfield.getText("lblAdminPwdResetNewPwd"));
+	}
+	
+	private void openAdminDetailsPageAndValidate(WebElement adminName) {
+		System.out.println("Validating admin details for: " + adminName.getText());
+		Global.button.click(adminName);
+		validateAdminPage();
+	}
+	
+	private void validateAdminPage() {
+//		TODO
+		validateSteps.assertTextPresentOnPage("Administrator Information");
+		validateSteps.assertTextPresentOnPage("Notes");
+		validateSteps.assertTextPresentOnPage("Groups");
+		validateSectionsDisplayed("Administrator Information");
+		validateSectionsDisplayed("Notes");
+		validateSectionsDisplayed("Groups");
+	}
+	
+	private void validateSectionsDisplayed(String sectionName ) {
+		assertThat(Global.validate.isElementDisplayed(Global.elements.returnElementXpath("lblAdminDetailsSection").replace("$$sectionName$$", sectionName))).as(sectionName = " is not displayed").isTrue();
+	}
+
+	@Then("^validate that the following error messages are displayed when mandatory field is left blank \"([^\"]*)\"$")
 	public void validateThatTheFollowingErrorMessagesAreDisplayedWhileCreatingANewAdmin(List<String> errorList) {
 //		TODO need to check if the method param comes as a list or single comma separated string
 //		List<String> errorList = Arrays.asList(StringUtils.split(errors, ','));
 		List<String> actualErrorListStr = new ArrayList<>();
-		List<WebElement> actualErrorsList = Global.elements.objects("lblAdminCreateError");
+		List<WebElement> actualErrorsList = Global.elements.objects("lblMandatoryFieldError");
 		for (WebElement error : actualErrorsList) {
 			actualErrorListStr.add(error.getText());
 		}
@@ -89,7 +129,28 @@ public class AdminPageSteps {
 	public void validateThatAListOfExistingAdminsIsPopulated() {
 		List<WebElement> existingDdminList = Global.elements.objects("lblAdminExistingList");
 		assertThat(existingDdminList).as("No list for existing admins").isNotNull().as("No list for existing admins").isNotEmpty();
-		
 	}
 	
+	@When("^admin with name \"([^\"]*)\", role \"([^\"]*)\" and username \"([^\"]*)\" is searched$")
+	public void adminWithNameRoleAndUsernameIsSearched(String name, String role, String username) {
+		Global.inputfield.setText("txtAdminName", name);
+		Global.inputfield.setText("txtAdminRole", role);
+		Global.inputfield.setText("txtAdminUserName", username);
+		Global.elements.object("txtAdminUserName").sendKeys(Keys.ENTER);
+	}
+	
+	@Then("^validate the message \"([^\"]*)\" is displayed$")
+	public void validateTheMessageIsDisplayed(String expMsg) {
+//		TODO need to check if isElementDisplayedImmediately or isElementDisplayed should be used
+		String actualMsg = null;
+		if(Global.validate.isElementDisplayedImmediately("lblAdminModalMsg")) {
+			actualMsg = Global.inputfield.getText("lblAdminModalMsg");
+		} else if(Global.validate.isElementDisplayedImmediately("lblAdminModalDeleteSuccess")) {
+			actualMsg = Global.inputfield.getText("lblAdminModalDeleteSuccess");
+		} else if(Global.validate.isElementDisplayedImmediately("lblAdminModalPwdResetSuccess")) {
+			actualMsg = Global.inputfield.getText("lblAdminModalPwdResetSuccess");
+		} 
+		
+		assertThat(actualMsg).as("Actual message is differnt from expected. Actual message: " + actualMsg).isEqualToIgnoringWhitespace(expMsg);
+	}
 }

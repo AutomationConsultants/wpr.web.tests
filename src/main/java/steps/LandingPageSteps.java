@@ -2,10 +2,8 @@ package steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.exec.util.StringUtils;
 import org.openqa.selenium.WebElement;
 
 import cucumber.api.java.en.Then;
@@ -17,7 +15,7 @@ public class LandingPageSteps {
 	@Then("^validate that the following text is displayed on the page$")
 	public void validateThatTextsAreDisplayed(List<String> textToVerifyList) {
 		for (String textToVerify : textToVerifyList) {
-			assertThat(Global.validate.verifyTextPresent(textToVerify)).as("Failed to find:" + textToVerify).isTrue();
+			assertThat(Global.validate.verifySimilarTextPresent(textToVerify)).as("Failed to find:" + textToVerify).isTrue();
 		}
 	}
 	
@@ -42,6 +40,20 @@ public class LandingPageSteps {
 	public void validateThatFollowingFieldsAreDisplayed(List<String> fieldList) {
 		for (String uiObjectName : fieldList) {
 			assertThat(Global.validate.isElementDisplayedImmediately(uiObjectName)).as(uiObjectName + " is not displayed").isTrue();
+		}
+	}
+	
+	@Then("^validate that following fields are disabled on the page$")
+	public void validateThatFollowingFieldsAreDisabled(List<String> fieldList) {
+		for (String uiObjectName : fieldList) {
+			assertThat(Global.validate.isElementEnabled(uiObjectName)).as(uiObjectName + " is enabled. Should be disabled").isFalse();
+		}
+	}
+	
+	@When("^following mandatory fields are left blank$")
+	public void followingMandatoryFieldsAreLeftBlank(List<String> fieldList) {
+		for (String uiObjectName : fieldList) {
+			Global.elements.object(uiObjectName).clear();
 		}
 	}
 	

@@ -30,3 +30,10 @@ Feature: Validate functionality for Detail section
       | txtHours          |
       | txtWebsite        |
       | btnSubmit         |
+      | txtLastLoggedInDt |
+     And validate that following fields are disabled on the page
+      | txtEmail          |
+      | txtLastLoggedInDt |
+    When following mandatory fields are left blank
+      | txtName |
+    Then validate that the following error messages are displayed when mandatory field is left blank "Name is required"

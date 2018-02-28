@@ -17,7 +17,7 @@ Feature: Left navigation panel
       | Pet Samples   |
       | Waste Samples |
       | Pet Owners    |
-     And validate percentages in following tables of "Dashboard"
+     And validate status, count and percentage in following tables of "Dashboard"
       | Pet Samples   |
       | Waste Samples |
       | Pet Owners    |

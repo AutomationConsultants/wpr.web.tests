@@ -1,9 +1,9 @@
 package steps;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import cucumber.api.java.en.Then;
 import driver.Global;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class WPRCommonSteps {
 	

@@ -22,9 +22,10 @@ Feature: Validate functionality for Admin section
      And validate that there is data in the table
 
   Scenario Outline: Validate Create New Admin functionality
-    Given click on button "btnAdminCreateNew"
-     Then validate that the header is "Create New Admin"
-      And validate that the following fields are displayed
+    When "Admins" link is clicked on the left navigation
+     And click on button "btnAdminCreateNew"
+    Then validate that the header is "Create New Admin"
+     And validate that the following fields are displayed
       | txtAdminFirstName    |
       | txtAdminLastName     |
       | txtAdminEmail        |
@@ -34,10 +35,10 @@ Feature: Validate functionality for Admin section
       | txtAdminBioPetNotes  |
       | btnAdminCreate       |
       | btnAdminCancel       |
-      And validate that the dropdown "drpAdminRole" has values
+     And validate that the dropdown "drpAdminRole" has values
       | BioPetCustomerServiceAdmin |
       | ManagementFirmManager      |
-     When enter following values in fields
+    When enter following values in fields
       | Value            | Field                |
       | "<FirstName>"    | txtAdminFirstName    |
       | "<LastName>"     | txtAdminLastName     |
@@ -46,24 +47,23 @@ Feature: Validate functionality for Admin section
       | "<Role>"         | txtAdminRole         |
       | "<AdminNotes>"   | txtAdminNotes        |
       | "<BioPetNotes>"  | txtAdminBioPetNotes  |
-      And click on button "btnAdminCreate"
-     Then validate that the text for "lblAdminModalHeader" is "New Admin created successfully."
-      And validate that the following fields are displayed
+     And click on button "btnAdminCreate"
+    Then validate that the text for "lblAdminModalHeader" is "New Admin created successfully."
+     And validate that the following fields are displayed
       | btnAdminCreateSuccessOK |
-     When click on button "btnAdminCreateSuccessOK"
-      And text "<FirstName> <LastName>" is entered in field "txtAdminName"
-      And text "<FirstName> <LastName>" is entered in field "txtAdminName"
-      And text "<Role>	" is entered in field "txtAdminRole"
-     Then validate that there is data in the table
+    When click on button "btnAdminCreateSuccessOK"
+     And admin with name "<FirstName> <LastName>", role "<AdminRole>" and username "" is searched
+    Then validate that there is data in the table
 
     Examples: 
       | FirstName | LastName | Email         | ContactEmail  | Role                       | AdminNotes       | BioPetNotes            |
       | FNAME     | LNAME    | test@test.com | test@test.com | BioPetCustomerServiceAdmin | Admin notes test | Bio Pet Lab Notes test |
 
   Scenario Outline: Validate error messages while Create New Admin
-    Given click on button "btnAdminCreateNew"
-     Then validate that the header is "Create New Admin"
-      And validate that the following fields are displayed
+    When "Admins" link is clicked on the left navigation
+     And click on button "btnAdminCreateNew"
+    Then validate that the header is "Create New Admin"
+     And validate that the following fields are displayed
       | txtAdminFirstName    |
       | txtAdminLastName     |
       | txtAdminEmail        |
@@ -73,10 +73,10 @@ Feature: Validate functionality for Admin section
       | txtAdminBioPetNotes  |
       | btnAdminCreate       |
       | btnAdminCancel       |
-      And validate that the dropdown "drpAdminRole" has values
+     And validate that the dropdown "drpAdminRole" has values
       | BioPetCustomerServiceAdmin |
       | ManagementFirmManager      |
-     When enter following values in fields
+    When enter following values in fields
       | Value            | Field                |
       | "<FirstName>"    | txtAdminFirstName    |
       | "<LastName>"     | txtAdminLastName     |
@@ -85,59 +85,105 @@ Feature: Validate functionality for Admin section
       | "<Role>"         | txtAdminRole         |
       | "<AdminNotes>"   | txtAdminNotes        |
       | "<BioPetNotes>"  | txtAdminBioPetNotes  |
-      And click on button "btnAdminCreate"
-     Then validate that the following error messages are displayed while creating a new admin "<ErrorMsgList>"
+     And click on button "btnAdminCreate"
+    Then validate that the following error messages are displayed when mandatory field is left blank "<ErrorMsgList>"
 
     Examples: 
       | FirstName | LastName | Email | ContactEmail | Role                       | AdminNotes       | BioPetNotes            | ErrorMsgList                                                                  |
       |           |          |       |              | BioPetCustomerServiceAdmin | Admin notes test | Bio Pet Lab Notes test | First Name is required,Last Name is required,Please provide an email address. |
 
   Scenario Outline: Validate Add Existing Admin functionality
-    Given click on button "btnAdminCreateNew"
-     Then validate that the header is "Add Existing Admin"
-      And validate that the following fields are displayed
+    When "Admins" link is clicked on the left navigation
+     And click on button "btnAdminCreateNew"
+    Then validate that the header is "Add Existing Admin"
+     And validate that the following fields are displayed
       | txtAdminFirstName |
       | txtAdminEmail     |
-     When admin with name "<AdminName>" and email id "<AdminEmail>" is selected
-     Then validate that there are not error messages
-     When text "<AdminName>" is entered in field "txtAdminName"
-      And text "<AdminRole>" is entered in field "txtAdminRole"
-      And text "<AdminUserName>" is entered in field "txtAdminUserName"
-     Then validate that there is data in the table
+    When admin with name "<AdminName>" and email id "<AdminEmail>" is selected
+    Then validate that there are no error messages
+    When text "<AdminName>" is entered in field "txtAdminName"
+
+    Then validate that there is data in the table
 
   Scenario Outline: Validate that a list is populated for existing admins
-    Given click on button "btnAdminCreateNew"
-     Then validate that the header is "Add Existing Admin"
-      And validate that the following fields are displayed
+    When "Admins" link is clicked on the left navigation
+     And click on button "btnAdminCreateNew"
+    Then validate that the header is "Add Existing Admin"
+     And validate that the following fields are displayed
       | txtAdminFirstName |
       | txtAdminEmail     |
-      And validate that a list of existing admins is populated
+     And validate that a list of existing admins is populated
 
     Examples: 
       | AdminName | AdminRole      | AdminEmail    | AdminUserName |
       | Test Test | BioPetLabAdmin | test@test.com |               |
 
   Scenario Outline: Validate filtering logic for Admin Page
-    Given text "<AdminName>" is entered in field "txtAdminName"
-      And text "<AdminRole>" is entered in field "txtAdminRole"
-      And text "<AdminUserName>" is entered in field "txtAdminUserName"
-     Then validate that there is data in the table
+    When "Admins" link is clicked on the left navigation
+     And admin with name "<AdminName>", role "<AdminRole>" and username "<AdminUserName>" is searched
+    Then validate that there is data in the table
 
     Examples: 
       | AdminName | AdminRole      | AdminUserName |
       | Test Test | BioPetLabAdmin | WPR154541     |
 
   Scenario Outline: Validate Admin details page
-    Given text "<AdminName>" is entered in field "txtAdminName"
-      And text "<AdminRole>" is entered in field "txtAdminRole"
-      And text "<AdminUserName>" is entered in field "txtAdminUserName"
-     Then validate that there is data in the table
-      And validate Admin details page
+    When "Admins" link is clicked on the left navigation
+     And admin with name "<AdminName>", role "<AdminRole>" and username "<AdminUserName>" is searched
+    Then validate that there is data in the table
+     And validate admin details page
 
     Examples: 
       | AdminName | AdminRole      | AdminUserName |
       | Test Test | BioPetLabAdmin |               |
 
-  Scenario: Validate
+  Scenario Outline: Validate delete Admin functionality
+    When "Admins" link is clicked on the left navigation
+     And admin with name "<AdminName>", role "<AdminRole>" and username "<AdminUserName>" is searched
+    Then validate that there is data in the table
+    When admin details page is opened for the admin
+     And click on button "btnAdminDelete"
+    Then validate the message "Are you sure you want to delete this admin? This action cannot be undone! Type <AdminUserName> to confirm" is displayed
+     And text "<AdminUserName>" is entered in field "txtAdminModal"
+    When click on button "btnYes"
+    Then validate the message "Admin deleted successfully." is displayed
+    When click on button "btnOK"
+    Then validate that the following text is displayed on the page
+      | Pet Samples   |
+      | Waste Samples |
+      | Pet Owners    |
 
-  Scenario: Validate sorting logic for Admin Page
+    Examples: 
+      | AdminName | AdminRole      | AdminUserName |
+      | Test Test | BioPetLabAdmin |               |
+
+  Scenario Outline: Validate deactivate Admin functionality
+    When "Admins" link is clicked on the left navigation
+     And admin with name "<AdminName>", role "<AdminRole>" and username "<AdminUserName>" is searched
+    Then validate that there is data in the table
+    When admin details page is opened for the admin
+     And click on button "btnAdminDeactivate"
+    Then validate the message "Deactivated users cannot log into the World Pet Registry. Are you sure you want to deactivate this admin?" is displayed
+    When click on button "btnYes"
+    Then validate the message "Admin '<AdminName>' deactivated successfully." is displayed
+    When click on button "btnOK"
+
+    Examples: 
+      | AdminName | AdminRole      | AdminUserName |
+      | Test Test | BioPetLabAdmin |               |
+
+  Scenario Outline: Validate reset password functionality
+    When "Admins" link is clicked on the left navigation
+     And admin with name "<AdminName>", role "<AdminRole>" and username "<AdminUserName>" is searched
+    Then validate that there is data in the table
+    When admin details page is opened for the admin
+     And click on button "btnAdminResetPwd"
+    Then validate the message "You are about to reset this user password. If you click continue a new password will be automatically generated and emailed to this user email address. Are you sure you want to continue?" is displayed
+    When click on button "btnYes"
+    Then validate the message "Password has been reset successfully." is displayed
+     And log user and new password
+    When click on button "btnOK"
+
+    Examples: 
+      | AdminName | AdminRole      | AdminUserName |
+      | Test Test | BioPetLabAdmin |               |
