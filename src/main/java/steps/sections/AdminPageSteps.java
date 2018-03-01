@@ -3,6 +3,7 @@ package steps.sections;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -122,9 +123,8 @@ public class AdminPageSteps {
 	}
 
 	@Then("^validate that the following error messages are displayed when mandatory field is left blank \"([^\"]*)\"$")
-	public void validateThatTheFollowingErrorMessagesAreDisplayedWhileCreatingANewAdmin(List<String> errorList) {
-//		TODO need to check if the method param comes as a list or single comma separated string
-//		List<String> errorList = Arrays.asList(StringUtils.split(errors, ','));
+	public void validateThatTheFollowingErrorMessagesAreDisplayedWhileCreatingANewAdmin(String errorListStr) {
+		List<String> errorList = Arrays.asList(StringUtils.split(errorListStr, ','));
 		List<String> actualErrorListStr = new ArrayList<>();
 		List<WebElement> actualErrorsList = Global.elements.objects("lblMandatoryFieldError");
 		for (WebElement error : actualErrorsList) {
