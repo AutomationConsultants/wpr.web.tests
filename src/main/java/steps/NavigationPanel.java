@@ -22,7 +22,7 @@ import impl.Login;
 
 public class NavigationPanel {
 	LandingPage landingPage = new LandingPage();
-	private static final Logger logger = LogManager.getRootLogger();
+	private static final Logger logger = LogManager.getLogger(NavigationPanel.class);;
 	Browser browser = new Browser();
 	Login login = new Login();
 	

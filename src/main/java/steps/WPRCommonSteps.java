@@ -8,8 +8,9 @@ import driver.Global;
 public class WPRCommonSteps {
 	
 	@Then("^validate that the header is \"([^\"]*)\"$")
-	public void validateThatTheHeaderIs(String expHeader) {
-		assertThat(Global.validate.textOfInput("lblModalHeader", expHeader)).as("Actual header differs from expected").isTrue();
+	public void validateThatTheHeaderIs(String expHeader) throws InterruptedException {
+		Thread.sleep(3000);
+		assertThat(Global.validate.textOfInput("lblAdminModalHeader", expHeader)).as("Actual header differs from expected").isTrue();
 	}
 
 }

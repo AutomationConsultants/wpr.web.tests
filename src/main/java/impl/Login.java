@@ -10,8 +10,8 @@ public class Login {
 	private static final Logger logger = LogManager.getLogger(Login.class);
 	
 	public boolean perform() {
-		Log.getLog().info("This is etst");
-		System.out.println(getClass().getClassLoader().getResource("logging.properties"));
+		Log.getLog().info("This is test");
+		logger.error(getClass().getClassLoader().getResource("log4j2.properties"));
 
 		String username  = "Jerri Woodard";
 		String password = "Winter24";

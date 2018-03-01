@@ -7,7 +7,7 @@ import driver.Global;
 
 public class LandingPage {
 	
-	private static Logger logger = LogManager.getRootLogger();
+	private static Logger logger = LogManager.getLogger(LandingPage.class);
 	
 	public boolean isLeftNavOpen() {
 		return Global.validate.isTextPresentOnPage(" Group Management For: ");

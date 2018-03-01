@@ -33,7 +33,7 @@ public class AdminPageSteps {
 	public void enterFollowingValuesInFields(List<Map<String,String>> enterTextList) {
 		for (Map<String, String> objectAndText : enterTextList) {
 			String uiObjectName = objectAndText.get("Field");
-			String uiElementType = uiObjectName.substring(0, 2);
+			String uiElementType = uiObjectName.substring(0, 3);
 			switch(uiElementType) {
 			case "txt":
 				Global.inputfield.setPassword(uiObjectName, objectAndText.get("Value"));
@@ -145,12 +145,23 @@ public class AdminPageSteps {
 		String actualMsg = null;
 		if(Global.validate.isElementDisplayedImmediately("lblAdminModalMsg")) {
 			actualMsg = Global.inputfield.getText("lblAdminModalMsg");
-		} else if(Global.validate.isElementDisplayedImmediately("lblAdminModalDeleteSuccess")) {
-			actualMsg = Global.inputfield.getText("lblAdminModalDeleteSuccess");
+		} else if(Global.validate.isElementDisplayedImmediately("lblAdminModaCreateDeleteSuccess")) {
+			actualMsg = Global.inputfield.getText("lblAdminModaCreateDeleteSuccess");
 		} else if(Global.validate.isElementDisplayedImmediately("lblAdminModalPwdResetSuccess")) {
 			actualMsg = Global.inputfield.getText("lblAdminModalPwdResetSuccess");
 		} 
 		
 		assertThat(actualMsg).as("Actual message is differnt from expected. Actual message: " + actualMsg).isEqualToIgnoringWhitespace(expMsg);
+	}
+	
+	@Given("^validate that the dropdown \"([^\"]*)\" has following values$")
+	public void validateThatTheDropdownHasFollowingValues(String dropdownObj, List<String> dropdownValuesList) {
+		List<String> actualValuesList = new ArrayList<>();
+		Global.button.click(dropdownObj);
+		List<WebElement> elementList = Global.elements.objects("drpAdminRoleList");
+		for (WebElement webElement : elementList) {
+			actualValuesList.add(webElement.getText());
+		}
+		assertThat(actualValuesList).as(dropdownObj + " has values: " + actualValuesList).containsAll(dropdownValuesList);
 	}
 }

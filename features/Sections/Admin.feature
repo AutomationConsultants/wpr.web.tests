@@ -21,6 +21,7 @@ Feature: Validate functionality for Admin section
       | txtAdminUserName |
      And validate that there is data in the table
 
+@test
   Scenario Outline: Validate Create New Admin functionality
     When "Admins" link is clicked on the left navigation
      And click on button "btnAdminCreateNew"
@@ -35,7 +36,7 @@ Feature: Validate functionality for Admin section
       | txtAdminBioPetNotes  |
       | btnAdminCreate       |
       | btnAdminCancel       |
-     And validate that the dropdown "drpAdminRole" has values
+     And validate that the dropdown "drpAdminRole" has following values
       | BioPetCustomerServiceAdmin |
       | ManagementFirmManager      |
     When enter following values in fields
@@ -48,16 +49,16 @@ Feature: Validate functionality for Admin section
       | "<AdminNotes>"   | txtAdminNotes        |
       | "<BioPetNotes>"  | txtAdminBioPetNotes  |
      And click on button "btnAdminCreate"
-    Then validate that the text for "lblAdminModalHeader" is "New Admin created successfully."
+    Then validate that the text for "lblAdminModaCreateDeleteSuccess" is "New Admin created successfully."
      And validate that the following fields are displayed
       | btnAdminCreateSuccessOK |
-    When click on button "btnAdminCreateSuccessOK"
+    When click on button "btnOK"
      And admin with name "<FirstName> <LastName>", role "<AdminRole>" and username "" is searched
     Then validate that there is data in the table
 
     Examples: 
       | FirstName | LastName | Email         | ContactEmail  | Role                       | AdminNotes       | BioPetNotes            |
-      | FNAME     | LNAME    | test@test.com | test@test.com | BioPetCustomerServiceAdmin | Admin notes test | Bio Pet Lab Notes test |
+      | FNAME     | LNAME    | test@test.com | fnamelname@test.com | BioPetCustomerServiceAdmin | Admin notes test | Bio Pet Lab Notes test |
 
   Scenario Outline: Validate error messages while Create New Admin
     When "Admins" link is clicked on the left navigation
@@ -73,7 +74,7 @@ Feature: Validate functionality for Admin section
       | txtAdminBioPetNotes  |
       | btnAdminCreate       |
       | btnAdminCancel       |
-     And validate that the dropdown "drpAdminRole" has values
+     And validate that the dropdown "drpAdminRole" has following values
       | BioPetCustomerServiceAdmin |
       | ManagementFirmManager      |
     When enter following values in fields

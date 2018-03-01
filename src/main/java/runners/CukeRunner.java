@@ -7,7 +7,7 @@ import cucumber.api.SnippetType;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = {"features/Test.feature"}, 
+@CucumberOptions(features = {"features/Sections/Admin.feature"}, 
 glue = {"steps"}, 
 plugin = {"pretty", "json:target/results/cucumber.json"}, 
 tags = {"@test"},
