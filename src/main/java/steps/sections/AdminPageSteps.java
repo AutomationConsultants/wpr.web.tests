@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
@@ -36,10 +37,17 @@ public class AdminPageSteps {
 			String uiElementType = uiObjectName.substring(0, 3);
 			switch(uiElementType) {
 			case "txt":
-				Global.inputfield.setPassword(uiObjectName, objectAndText.get("Value"));
+				Global.inputfield.setText(uiObjectName, objectAndText.get("Value"));
 				break;
 			case "drp":
-				Global.dropdown.selectByVisibleText(uiObjectName, objectAndText.get("Value"));
+				Global.button.click(uiObjectName);
+				List<WebElement> drpOptionsList = Global.elements.objects("drpAdminRoleList");
+				for (WebElement drpOption : drpOptionsList) {
+					if(StringUtils.equals(objectAndText.get("Value"), drpOption.getText())) {
+						drpOption.click();
+						break;
+					}
+				}
 				break;
 			}
 		}

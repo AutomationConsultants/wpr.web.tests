@@ -6,12 +6,12 @@
 	<Appenders>
 		<Console name="console-log" target="SYSTEM_OUT">
 			<PatternLayout
-				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} : %L - %msg%n" />
 		</Console>
 		<RollingFile name="trace-log" fileName="${log-path}/trace.log"
 			filePattern="${log-path}/trace-%d{yyyy-MM-dd}.log">
 			<PatternLayout>
-				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} : %L : %L - %msg%n
 				</pattern>
 			</PatternLayout>
 			<Policies>
@@ -22,7 +22,7 @@
 		<RollingFile name="error-log" fileName="${log-path}/error.log"
 			filePattern="${log-path}/error-%d{yyyy-MM-dd}.log">
 			<PatternLayout>
-				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} : %L - %msg%n
 				</pattern>
 			</PatternLayout>
 			<Policies>
