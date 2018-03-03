@@ -14,7 +14,7 @@ public class Login {
 		Global.inputfield.setText("txtUsername", username);
 		Global.inputfield.setPassword("txtPassword", password);
 		Global.button.click("btnLogin");
-		return Global.validate.isElementDisplayed("txtUsername");
+		return Global.validate.isElementDisplayedImmediately("txtUsername");
 	}
 
 }

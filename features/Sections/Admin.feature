@@ -21,7 +21,6 @@ Feature: Validate functionality for Admin section
       | txtAdminUserName |
      And validate that there is data in the table
 
-  
   Scenario Outline: Validate Create New Admin functionality
     When "Admins" link is clicked on the left navigation
      And click on button "btnAdminCreateNew"
@@ -48,7 +47,7 @@ Feature: Validate functionality for Admin section
       | <Role>         | drpAdminRole         |
       | <AdminNotes>   | txtAdminNotes        |
       | <BioPetNotes>  | txtAdminBioPetNotes  |
-      And click on button "btnAdminCreate"
+     And click on button "btnAdminCreate"
     Then validate that the text for "lblAdminModaCreateDeleteSuccess" is "New Admin created successfully."
      And validate that the following fields are displayed
       | btnOK |
@@ -60,7 +59,6 @@ Feature: Validate functionality for Admin section
       | FirstName | LastName | Email         | ContactEmail        | Role                       | AdminNotes       | BioPetNotes            |
       | FNAME     | LNAME    | test@test.com | fnamelname@test.com | BioPetCustomerServiceAdmin | Admin notes test | Bio Pet Lab Notes test |
 
-@test
   Scenario Outline: Validate error messages while Create New Admin
     When "Admins" link is clicked on the left navigation
      And click on button "btnAdminCreateNew"
@@ -87,33 +85,37 @@ Feature: Validate functionality for Admin section
       | <Role>         | drpAdminRole         |
       | <AdminNotes>   | txtAdminNotes        |
       | <BioPetNotes>  | txtAdminBioPetNotes  |
-       And click on button "btnAdminCreate"
+     And click on button "btnAdminCreate"
     Then validate that the following error messages are displayed when mandatory field is left blank "<ErrorMsgList>"
 
     Examples: 
       | FirstName | LastName | Email | ContactEmail | Role                       | AdminNotes       | BioPetNotes            | ErrorMsgList                                                                  |
       |           |          |       |              | BioPetCustomerServiceAdmin | Admin notes test | Bio Pet Lab Notes test | First Name is required,Last Name is required,Please provide an email address. |
 
+  @test
   Scenario Outline: Validate Add Existing Admin functionality
     When "Admins" link is clicked on the left navigation
      And click on button "btnAdminAddExisting"
     Then validate that the header is "Add Existing Admin"
      And validate that the following fields are displayed
-      | txtAdminFirstName |
-      | txtAdminEmail     |
+      | txtAdminFullName |
+      | txtAdminEmail    |
     When admin with name "<AdminName>" and email id "<AdminEmail>" is selected
     Then validate that there are no error messages
     When text "<AdminName>" is entered in field "txtAdminName"
-
     Then validate that there is data in the table
+
+    Examples: 
+      | AdminName | AdminRole      | AdminEmail | AdminUserName |
+      | Test Test | BioPetLabAdmin |            |               |
 
   Scenario Outline: Validate that a list is populated for existing admins
     When "Admins" link is clicked on the left navigation
      And click on button "btnAdminAddExisting"
     Then validate that the header is "Add Existing Admin"
      And validate that the following fields are displayed
-      | txtAdminFirstName |
-      | txtAdminEmail     |
+      | txtAdminFullName |
+      | txtAdminEmail    |
      And validate that a list of existing admins is populated
 
     Examples: 
@@ -127,7 +129,7 @@ Feature: Validate functionality for Admin section
 
     Examples: 
       | AdminName | AdminRole      | AdminUserName |
-      | Test Test | BioPetLabAdmin | WPR154541     |
+      | Test Test | BioPetLabAdmin |               |
 
   Scenario Outline: Validate Admin details page
     When "Admins" link is clicked on the left navigation

@@ -14,6 +14,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumberReports.CucumberReporter;
 import driver.Browser;
 import driver.Global;
 import fileUtilities.PropertiesLoader;
@@ -22,9 +23,10 @@ import impl.Login;
 
 public class NavigationPanel {
 	LandingPage landingPage = new LandingPage();
-	private static final Logger logger = LogManager.getLogger(NavigationPanel.class);;
+	private static final Logger logger = LogManager.getLogger(NavigationPanel.class);
 	Browser browser = new Browser();
 	Login login = new Login();
+	CucumberReporter cucumberReporter = new CucumberReporter();
 	
 	@Before
 	public void setup() {
@@ -47,11 +49,13 @@ public class NavigationPanel {
 			Global.driver.quit();
 			logger.info("Browser closed");
 		}
+		cucumberReporter.generateReport();
 	}
 	
 	@Given("^login is completed on world pet registry website$")
 	public void loginIsCompletedOnWorldPetRegistryWebsite() {
 		assertThat(login.perform()).as("Login Failed").isFalse();
+		logger.info("Login Successful!");
 	}
 
 	@Then("^validate that the left navigation is open$")
