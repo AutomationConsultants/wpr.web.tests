@@ -20,6 +20,7 @@ import cucumber.api.java.en.When;
 import driver.Global;
 import steps.NavigationPanel;
 import steps.ValidateCommonSteps;
+import webUtilities.Wait;
 
 public class AdminPageSteps {
 	
@@ -121,6 +122,7 @@ public class AdminPageSteps {
 	
 	private void validateAdminPage() {
 //		TODO
+		new Wait().forAngularLoad();
 		validateSteps.assertTextPresentOnPage("Administrator Information");
 		validateSteps.assertTextPresentOnPage("Notes");
 		validateSteps.assertTextPresentOnPage("Groups");
@@ -130,7 +132,7 @@ public class AdminPageSteps {
 	}
 	
 	private void validateSectionsDisplayed(String sectionName ) {
-		assertThat(Global.validate.isElementDisplayed(Global.elements.returnElementXpath("lblAdminDetailsSection").replace("$$sectionName$$", sectionName))).as(sectionName = " is not displayed").isTrue();
+		assertThat(Global.validate.isElementDisplayed(Global.elements.returnElementXpath("lblAdminDetailsSection").replace("$$sectionName$$", sectionName))).as(sectionName + " is not displayed").isTrue();
 	}
 
 	@Then("^validate that the following error messages are displayed when mandatory field is left blank \"([^\"]*)\"$")
