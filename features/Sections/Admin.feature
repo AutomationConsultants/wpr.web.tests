@@ -92,7 +92,7 @@ Feature: Validate functionality for Admin section
       | FirstName | LastName | Email | ContactEmail | Role                       | AdminNotes       | BioPetNotes            | ErrorMsgList                                                                  |
       |           |          |       |              | BioPetCustomerServiceAdmin | Admin notes test | Bio Pet Lab Notes test | First Name is required,Last Name is required,Please provide an email address. |
 
-  @test
+
   Scenario Outline: Validate Add Existing Admin functionality
     When "Admins" link is clicked on the left navigation
      And click on button "btnAdminAddExisting"
@@ -109,6 +109,7 @@ Feature: Validate functionality for Admin section
       | AdminName | AdminRole      | AdminEmail | AdminUserName |
       | Test Test | BioPetLabAdmin |            |               |
 
+  
   Scenario Outline: Validate that a list is populated for existing admins
     When "Admins" link is clicked on the left navigation
      And click on button "btnAdminAddExisting"
@@ -130,7 +131,7 @@ Feature: Validate functionality for Admin section
     Examples: 
       | AdminName | AdminRole      | AdminUserName |
       | Test Test | BioPetLabAdmin |               |
-
+@test
   Scenario Outline: Validate Admin details page
     When "Admins" link is clicked on the left navigation
      And admin with name "<AdminName>", role "<AdminRole>" and username "<AdminUserName>" is searched

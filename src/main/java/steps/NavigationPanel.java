@@ -2,6 +2,7 @@ package steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.File;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -49,7 +50,7 @@ public class NavigationPanel {
 			Global.driver.quit();
 			logger.info("Browser closed");
 		}
-		cucumberReporter.generateReport();
+		cucumberReporter.generateReport(new File(System.getProperty("user.dir")  + "/target/results").getAbsolutePath());
 	}
 	
 	@Given("^login is completed on world pet registry website$")

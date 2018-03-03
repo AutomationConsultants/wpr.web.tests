@@ -34,8 +34,10 @@ public class LandingPage {
 	
 	public void closeRightNavIfOpen() {
 		if(isRightNavOpen()) {
+			logger.info("Right nav is open");
 			clickOnRightNavButton();
 		}
+		logger.info("Closed right nav");
 	}
 	
 	public void openRightNavIfClosed() {

@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
@@ -21,6 +23,7 @@ import steps.ValidateCommonSteps;
 
 public class AdminPageSteps {
 	
+	private static final Logger logger = LogManager.getLogger(AdminPageSteps.class);;
 	NavigationPanel navigationPanel = new NavigationPanel();
 	ValidateCommonSteps validateSteps = new ValidateCommonSteps();
 	
@@ -56,21 +59,29 @@ public class AdminPageSteps {
 	
 	@Given("^admin with name \"([^\"]*)\" and email id \"([^\"]*)\" is selected$")
 	public void adminWithNameAndEmailIdIsSelected(String adminName, String adminEmail) throws InterruptedException {
-		Global.inputfield.setText("txtAdminName", adminName);
-		Global.elements.object("txtAdminName").sendKeys(Keys.ENTER);
+		Global.inputfield.setText("txtAdminFullName", adminName);
+		Global.elements.object("txtAdminFullName").sendKeys(Keys.ENTER);
 		Global.inputfield.setText("txtAdminEmail", adminEmail);
 		Global.elements.object("txtAdminEmail").sendKeys(Keys.ENTER);
-		Thread.sleep(5000);
-		Global.button.click(Global.elements.returnElementXpath("btnAdminSelectToAdd").replace("$$email$$", adminEmail));
+		Thread.sleep(1000);
+		Global.button.click(Global.elements.returnElementXpath("btnAdminSelectToAdd").replace("$$adminFullName$$", adminName));
 		if(Global.validate.isElementEnabled("btnAdminAdd")) {
 			Global.button.click("btnAdminAdd");
+		} else {
+			logger.info("Add button not enabled");
 		}
 	}
 	
 	@Then("^validate that there are no error messages$")
 	public void validateThatThereAreNoErrorMessages() {
-		String addAdminError = Global.inputfield.getText("lblAdminModalMsg");
-		assertThat(addAdminError).as("Failed to add admin. Error: " + addAdminError).isBlank();
+		String addAdminError = null;
+		if(Global.validate.isTextPresentOnPage("No records found.")) {
+			addAdminError = "No records found."; 
+			assertThat(addAdminError).as("No records found.").isBlank();
+		} else {
+			addAdminError = Global.inputfield.getText("lblAdminModalMsg");
+			assertThat(addAdminError).as("Failed to add admin. Error: " + addAdminError).isBlank();
+		}
 	}
 	
 	@Then("^validate admin details page$")
@@ -124,13 +135,13 @@ public class AdminPageSteps {
 
 	@Then("^validate that the following error messages are displayed when mandatory field is left blank \"([^\"]*)\"$")
 	public void validateThatTheFollowingErrorMessagesAreDisplayedWhileCreatingANewAdmin(String errorListStr) {
-		List<String> errorList = Arrays.asList(StringUtils.split(errorListStr, ','));
+		List<String> expErrorList = Arrays.asList(StringUtils.split(errorListStr, ','));
 		List<String> actualErrorListStr = new ArrayList<>();
 		List<WebElement> actualErrorsList = Global.elements.objects("lblMandatoryFieldError");
 		for (WebElement error : actualErrorsList) {
 			actualErrorListStr.add(error.getText());
 		}
-		assertThat(actualErrorListStr).as("All errors not displayed. Displayed errors " + actualErrorListStr).containsAll(errorList);
+		assertThat(actualErrorListStr).as("All errors not displayed. Displayed errors " + actualErrorListStr).containsAll(expErrorList);
 	}
 	
 	@Then("^validate that a list of existing admins is populated$")
