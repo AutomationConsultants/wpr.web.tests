@@ -2,56 +2,23 @@ package steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.File;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumberReports.CucumberReporter;
-import driver.Browser;
 import driver.Global;
-import fileUtilities.PropertiesLoader;
 import impl.LandingPage;
 import impl.Login;  
 
 public class NavigationPanel {
 	LandingPage landingPage = new LandingPage();
 	private static final Logger logger = LogManager.getLogger(NavigationPanel.class);
-	Browser browser = new Browser();
 	Login login = new Login();
-	CucumberReporter cucumberReporter = new CucumberReporter();
-	
-	@Before
-	public void setup() {
-		new Global();
-		new PropertiesLoader().loadProps();
-		browser.initiate(Global.testProps.getProperty("browser"));
-		logger.info("Browser initiated");
-		new PropertiesLoader().loadObjects();
-		browser.setup();
-		Global.jse = (JavascriptExecutor) Global.driver;
-//		new ExcelReader().loadObjectsFromExcel(new File(System.getProperty("user.dir") + "/src/test/resources/orproperties.xlsx/"));
-		
-	}
-	
-	@After
-	public void tearDown() {
-		Global.screenshot.take();
-		if(Global.driver != null) {
-			Global.driver.close();
-			Global.driver.quit();
-			logger.info("Browser closed");
-		}
-		cucumberReporter.generateReport(new File(System.getProperty("user.dir")  + "/target/results").getAbsolutePath());
-	}
 	
 	@Given("^login is completed on world pet registry website$")
 	public void loginIsCompletedOnWorldPetRegistryWebsite() {

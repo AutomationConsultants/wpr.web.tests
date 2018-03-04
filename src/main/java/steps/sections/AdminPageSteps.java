@@ -102,7 +102,6 @@ public class AdminPageSteps {
 		List<WebElement> adminList = Global.elements.objects("lblAdminNameList");
 		if(CollectionUtils.isNotEmpty(adminList)) {
 			openAdminDetailsPageAndValidate(adminList.get(0));
-			navigationPanel.linkIsClickedOnTheLeftNavigation("Admins");
 		} else {
 			System.out.println("Could not find any admin with selected criteria");
 		}
@@ -123,16 +122,14 @@ public class AdminPageSteps {
 	private void validateAdminPage() {
 //		TODO
 		new Wait().forAngularLoad();
-		validateSteps.assertTextPresentOnPage("Administrator Information");
-		validateSteps.assertTextPresentOnPage("Notes");
-		validateSteps.assertTextPresentOnPage("Groups");
 		validateSectionsDisplayed("Administrator Information");
 		validateSectionsDisplayed("Notes");
 		validateSectionsDisplayed("Groups");
 	}
 	
 	private void validateSectionsDisplayed(String sectionName ) {
-		assertThat(Global.validate.isElementDisplayed(Global.elements.returnElementXpath("lblAdminDetailsSection").replace("$$sectionName$$", sectionName))).as(sectionName + " is not displayed").isTrue();
+		validateSteps.assertTextPresentOnPage(sectionName);
+		assertThat(Global.validate.isElementDisplayedX(Global.elements.returnElementXpath("lblAdminDetailsSection").replace("$$sectionName$$", sectionName))).as(sectionName + " is not displayed").isTrue();
 	}
 
 	@Then("^validate that the following error messages are displayed when mandatory field is left blank \"([^\"]*)\"$")
@@ -162,17 +159,31 @@ public class AdminPageSteps {
 	
 	@Then("^validate the message \"([^\"]*)\" is displayed$")
 	public void validateTheMessageIsDisplayed(String expMsg) {
-//		TODO need to check if isElementDisplayedImmediately or isElementDisplayed should be used
-		String actualMsg = null;
-		if(Global.validate.isElementDisplayedImmediately("lblAdminModalMsg")) {
-			actualMsg = Global.inputfield.getText("lblAdminModalMsg");
-		} else if(Global.validate.isElementDisplayedImmediately("lblAdminModaCreateDeleteSuccess")) {
-			actualMsg = Global.inputfield.getText("lblAdminModaCreateDeleteSuccess");
-		} else if(Global.validate.isElementDisplayedImmediately("lblAdminModalPwdResetSuccess")) {
-			actualMsg = Global.inputfield.getText("lblAdminModalPwdResetSuccess");
+		String actualMsg1 = null;
+		String actualMsg2 = null;
+		String actualMsg3 = null;
+		if(Global.validate.isElementDisplayed("lblAdminModalMsg")) {
+			actualMsg1 = Global.inputfield.getText("lblAdminModalMsg");
 		} 
+		if(Global.validate.isElementDisplayed("lblAdminModaCreateDeleteSuccess")) {
+			actualMsg2 = Global.inputfield.getText("lblAdminModaCreateDeleteSuccess");
+		} 
+		if(Global.validate.isElementDisplayed("lblAdminModalPwdResetSuccess")) {
+			actualMsg3 = Global.inputfield.getText("lblAdminModalPwdResetSuccess");
+		} 
+		if(StringUtils.equalsAny(deleteWhitespaces(expMsg), deleteWhitespaces(actualMsg1), deleteWhitespaces(actualMsg2), deleteWhitespaces(actualMsg3))) {
+			logger.info("Correct validation message is displayed: " + expMsg);
+		} else {
+			logger.info("Message 1: " + actualMsg1);
+			logger.info("Message 2: " + actualMsg2);
+			logger.info("Message 3: " + actualMsg3);
+			assertThat(true).as("Actual message is differnt from expected. Actual messages: " + actualMsg1 + ", " + actualMsg2 + ", " + actualMsg3).isFalse();
+		}
 		
-		assertThat(actualMsg).as("Actual message is differnt from expected. Actual message: " + actualMsg).isEqualToIgnoringWhitespace(expMsg);
+	}
+	
+	private String deleteWhitespaces(String str) {
+		return StringUtils.deleteWhitespace(str);
 	}
 	
 	@Given("^validate that the dropdown \"([^\"]*)\" has following values$")

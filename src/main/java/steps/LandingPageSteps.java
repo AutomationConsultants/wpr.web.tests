@@ -2,9 +2,9 @@ package steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 import java.util.List;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import cucumber.api.java.en.Then;
@@ -55,6 +55,7 @@ public class LandingPageSteps {
 	public void followingMandatoryFieldsAreLeftBlank(List<String> fieldList) {
 		for (String uiObjectName : fieldList) {
 			Global.elements.object(uiObjectName).clear();
+			Global.elements.object(uiObjectName).sendKeys(Keys.ENTER);
 		}
 	}
 	
