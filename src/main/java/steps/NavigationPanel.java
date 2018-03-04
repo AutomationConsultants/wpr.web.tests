@@ -19,7 +19,8 @@ public class NavigationPanel {
 	LandingPage landingPage = new LandingPage();
 	private static final Logger logger = LogManager.getLogger(NavigationPanel.class);
 	Login login = new Login();
-	
+	CucumberHooks hooks = new CucumberHooks();
+
 	@Given("^login is completed on world pet registry website$")
 	public void loginIsCompletedOnWorldPetRegistryWebsite() {
 		assertThat(login.perform()).as("Login Failed").isFalse();
