@@ -39,13 +39,14 @@ Feature: Smoke tests
   Scenario: Validate page load for Sub-Groups on left nav
     When "Sub-Groups" link is clicked on the left navigation
     Then validate that the following text is displayed on the page
-      | Group Name        |
-      | Group Type        |
-      | Primary Phone     |
-      | Parent Group Name |
-      | City              |
-      | State             |
-      | Actions           |
+      | Group Name            |
+      | Last Login            |
+      | Last Sample Submitted |
+      | Last Pet Created      |
+      | Primary Phone         |
+      | City                  |
+      | State                 |
+      | Actions               |
      And validate that following fields are displayed on the page
       | txtName       |
       | txtPhone      |

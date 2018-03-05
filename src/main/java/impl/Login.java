@@ -14,7 +14,12 @@ public class Login {
 		Global.inputfield.setText("txtUsername", username);
 		Global.inputfield.setPassword("txtPassword", password);
 		Global.button.click("btnLogin");
-		return Global.validate.isElementDisplayedImmediately("txtUsername");
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return Global.validate.isElementDisplayedInSecs("txtUsername", 10);
 	}
 
 }

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
@@ -57,6 +58,10 @@ public class NavigationPanel {
 	@Then("^validate that the right nav has accounts$")
 	public void validateThatTheRightNavHasAccounts() {
     		List<WebElement> rightNavAccList = Global.elements.objects("lstRightnavAcc");
+    		if(CollectionUtils.isNotEmpty(rightNavAccList) && rightNavAccList.size() == 1) {
+    			Global.button.click(Global.elements.returnElementFromX("lnkRightNavLabName", "$$labName$$", rightNavAccList.get(0).getText()));
+    			rightNavAccList = Global.elements.objects("lstRightnavAcc");
+    		}
     		assertThat(rightNavAccList).as("No list in the right nav").isNotNull().size().as("Right nav is blank").isGreaterThan(0);
 		for (WebElement acc : rightNavAccList) {
 			logger.info(acc.getText());

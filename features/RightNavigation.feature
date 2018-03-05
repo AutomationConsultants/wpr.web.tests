@@ -9,7 +9,7 @@ When right nav is opened
 Then validate that the right nav has accounts
 
 
-@rightNavAll
+@rightNavAll 
 Scenario: Validate that the correct account opens on right nav
 When right nav is opened
 Then validate that the correct dashboard page is opened for each account in right nav
