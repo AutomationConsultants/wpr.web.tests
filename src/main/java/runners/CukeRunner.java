@@ -2,28 +2,27 @@ package runners;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
 import org.junit.Test;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
 
-public class CukeRunner  extends CucumberRunner {
+import cucumberReports.CucumberReporter;
+
+public class CukeRunner {
 	private static final Logger logger = LogManager.getLogger(CukeRunner.class);
-	
-	@Before
-	public void setup() {
-		logger.info("Cuke Runner Before");
-	}
-	public CukeRunner() {
-		logger.info("Cuke Runner Constructor");
-	}
-	
+
 	@Test
 	public void test() {
-		logger.info("Cuke Runner Test");
+		logger.info("Starting test execution..");
+		JUnitCore jUnitCore = new JUnitCore();
+		Result result = jUnitCore.run(CucumberRunner.class);
+		logger.info("Cuke Runner Test" + result.toString());
+		logger.info("Test execution completed. Failures: " + result.getFailureCount());
 	}
-	
-	@After
-	public void after() {
-		logger.info("Cuke Runner After");
+
+	@AfterClass
+	public static void after() {
+		new CucumberReporter().generateReport();
 	}
 }
