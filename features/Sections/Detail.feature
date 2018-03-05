@@ -3,7 +3,6 @@ Feature: Validate functionality for Detail section
   Background: Login to WPR
     Given login is completed on world pet registry website
       And right nav is closed
-@test
   Scenario: Validate page load for Detail
     When "Detail" link is clicked on the left navigation
      And validate that the following text is displayed on the page

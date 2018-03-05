@@ -1,9 +1,9 @@
-Feature: Validate functionality for Admin section
+Feature: Validate functionality for Sub-Groups section
 
   Background: Login to WPR
     Given login is completed on world pet registry website
       And right nav is closed
-
+@test
   Scenario: Validate page load for Sub-Groups
   When "Sub-Groups" link is clicked on the left navigation
     Then validate that the following text is displayed on the page

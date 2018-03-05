@@ -1,4 +1,4 @@
-Feature: Login to WPR and smoke test
+Feature: Smoke tests
 
   Background: Login to WPR
     Given login is completed on world pet registry website
@@ -70,8 +70,6 @@ Feature: Login to WPR and smoke test
       | Actions            |
      And validate that there is data in the table
 
-  #And validate the pagination at the bottom is displayed
-  #removing pagination because list is of 1 page only
   @smokeTests @petOwners
   Scenario: Validate page load for Pet Owners on left nav
     When "Pet Owners" link is clicked on the left navigation
@@ -86,7 +84,6 @@ Feature: Login to WPR and smoke test
       | Status           |
      And validate that there is data in the table
 
-  #And validate the pagination at the bottom is displayed
   @smokeTests @rightNav
   Scenario: Validate right nav
     When right nav is opened

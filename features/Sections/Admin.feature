@@ -20,7 +20,7 @@ Feature: Validate functionality for Admin section
       | txtAdminRole     |
       | txtAdminUserName |
      And validate that there is data in the table
-
+@ignore
   Scenario Outline: Validate Create New Admin functionality
     When "Admins" link is clicked on the left navigation
      And click on button "btnAdminCreateNew"
@@ -91,7 +91,7 @@ Feature: Validate functionality for Admin section
     Examples: 
       | FirstName | LastName | Email | ContactEmail | Role                       | AdminNotes       | BioPetNotes            | ErrorMsgList                                                                  |
       |           |          |       |              | BioPetCustomerServiceAdmin | Admin notes test | Bio Pet Lab Notes test | First Name is required,Last Name is required,Please provide an email address. |
-
+@ignore
   Scenario Outline: Validate Add Existing Admin functionality
     When "Admins" link is clicked on the left navigation
      And click on button "btnAdminAddExisting"
@@ -119,7 +119,7 @@ Feature: Validate functionality for Admin section
 
     Examples: 
       | AdminName | AdminRole      | AdminEmail    | AdminUserName |
-      | Test Test | BioPetLabAdmin | test@test.com |               |
+      |  |  |  |            meg   |
 
   Scenario Outline: Validate filtering logic for Admin Page
     When "Admins" link is clicked on the left navigation
@@ -128,7 +128,7 @@ Feature: Validate functionality for Admin section
 
     Examples: 
       | AdminName | AdminRole      | AdminUserName |
-      | Test Test | BioPetLabAdmin |               |
+      |  | BioPetLabAdmin |               |
 
   Scenario Outline: Validate Admin details page
     When "Admins" link is clicked on the left navigation
@@ -138,8 +138,8 @@ Feature: Validate functionality for Admin section
 
     Examples: 
       | AdminName | AdminRole      | AdminUserName |
-      | Test Test | BioPetLabAdmin |               |
-
+      |  |  |              meg |
+@ignore
   Scenario Outline: Validate delete Admin functionality
     When "Admins" link is clicked on the left navigation
      And admin with name "<AdminName>", role "<AdminRole>" and username "<AdminUserName>" is searched
@@ -160,7 +160,7 @@ Feature: Validate functionality for Admin section
       | AdminName | AdminRole      | AdminUserName |
       | Test Test | BioPetLabAdmin | meg           |
 
-  @test
+  @ignore
   Scenario Outline: Validate deactivate Admin functionality
     When "Admins" link is clicked on the left navigation
      And admin with name "<AdminName>", role "<AdminRole>" and username "<AdminUserName>" is searched
@@ -175,7 +175,7 @@ Feature: Validate functionality for Admin section
     Examples: 
       | AdminName | AdminRole      | AdminUserName |
       | Test Test | BioPetLabAdmin |               |
-
+@ignore
   Scenario Outline: Validate reset password functionality
     When "Admins" link is clicked on the left navigation
      And admin with name "<AdminName>", role "<AdminRole>" and username "<AdminUserName>" is searched
