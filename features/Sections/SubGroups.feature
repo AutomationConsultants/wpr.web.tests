@@ -18,8 +18,6 @@ Feature: Validate functionality for Sub-Groups section
     And validate that following fields are displayed on the page
       | txtName       |
       | txtPhone      |
-      | txtGroupType  |
-      | txtParentName |
       | txtCity       |
       | txtState      |
     And validate that there is data in the table
