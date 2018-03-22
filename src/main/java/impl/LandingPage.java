@@ -14,7 +14,7 @@ public class LandingPage {
 	}
 	
 	public boolean isRightNavOpen() {
-		return Global.validate.isElementDisplayedImmediately("lstRightnavAcc");
+		return Global.validate.isElementDisplayed("lstRightnavAcc");
 	}
 	
 	public boolean validateOptionOnLeftNav(String optionName) {

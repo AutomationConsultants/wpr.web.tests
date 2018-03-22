@@ -9,15 +9,16 @@ public class Login {
 	private static final Logger logger = LogManager.getLogger(Login.class);
 	
 	public boolean perform() {
-		String username  = "Jerri Woodard";
-		String password = "Winter24";
+		String username  = Global.testProps.getProperty("username");
+		String password = Global.testProps.getProperty("password");
+		Global.wait.forPageToLoad();
 		Global.inputfield.setText("txtUsername", username);
 		Global.inputfield.setPassword("txtPassword", password);
 		Global.button.click("btnLogin");
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return Global.validate.isElementDisplayedInSecs("txtUsername", 10);
 	}

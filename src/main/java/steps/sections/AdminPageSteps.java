@@ -65,7 +65,7 @@ public class AdminPageSteps {
 		Global.inputfield.setText("txtAdminEmail", adminEmail);
 		Global.elements.object("txtAdminEmail").sendKeys(Keys.ENTER);
 		Thread.sleep(1000);
-		Global.button.click(Global.elements.returnElementXpath("btnAdminSelectToAdd").replace("$$adminFullName$$", adminName));
+		Global.button.click(Global.elements.returnXpath("btnAdminSelectToAdd").replace("$$adminFullName$$", adminName));
 		if(Global.validate.isElementEnabled("btnAdminAdd")) {
 			Global.button.click("btnAdminAdd");
 		} else {
@@ -129,7 +129,7 @@ public class AdminPageSteps {
 	
 	private void validateSectionsDisplayed(String sectionName ) {
 		validateSteps.assertTextPresentOnPage(sectionName);
-		assertThat(Global.validate.isElementDisplayedX(Global.elements.returnElementXpath("lblAdminDetailsSection").replace("$$sectionName$$", sectionName))).as(sectionName + " is not displayed").isTrue();
+		assertThat(Global.validate.isElementDisplayedX(Global.elements.returnXpath("lblAdminDetailsSection").replace("$$sectionName$$", sectionName))).as(sectionName + " is not displayed").isTrue();
 	}
 
 	@Then("^validate that the following error messages are displayed when mandatory field is left blank \"([^\"]*)\"$")
